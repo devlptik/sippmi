@@ -9,7 +9,7 @@
 </div>
 
 <div class="form-group">
-    <label for="sigkatan">{{ trans('cruds.fakultum.fields.singkatan') }}</label>
+    <label for="singkatan">{{ trans('cruds.fakultum.fields.singkatan') }}</label>
     {!! html()->text('singkatan')->id('singkatan')->placeholder(trans('cruds.fakultum.fields.singkatan_helper'))->class(['form-control','col-5',  'is-invalid' => $errors->has('singkatan')]) !!}
     @if($errors->has('singkatan'))
         <div class="invalid-feedback">
