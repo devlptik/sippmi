@@ -3,8 +3,7 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
-        'Program Studi' => route('admin.prodis.index'),
-        'Index' => '#'
+        'Program Studi' => '#'
     ]) !!}
 @endsection
 
@@ -32,9 +31,6 @@
                             {{ trans('cruds.prodi.fields.fakultas') }}
                         </th>
                         <th class="text-center">
-                            {{ trans('cruds.fakultum.fields.singkatan') }}
-                        </th>
-                        <th class="text-center">
                             Aksi
                         </th>
                     </tr>
@@ -47,9 +43,6 @@
                             </td>
                             <td>
                                 {{ $prodi->fakultas->nama ?? '' }}
-                            </td>
-                            <td>
-                                {{ $prodi->fakultas->singkatan ?? '' }}
                             </td>
                             <td class="text-center">
                                 @can('prodi_view')

@@ -2,60 +2,46 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
-        'Permission' => route('admin.permissions.index'),
-        'Index' => '#'
+        'Permission' => '#'
     ]) !!}
 @stop
 @section('toolbar')
     @can('permission_manage')
-        {!! cui_toolbar_btn(route('admin.permissions.create'), 'icon-plus', trans('global.add').' '.trans('cruds.permission.title_singular') ) !!}
+        {!! cui_toolbar_btn(route('admin.permissions.create'), 'cil-plus', 'Tambah Permission') !!}
     @endcan
-@stop
+@endsection
 @section('content')
     <div class="card">
         <div class="card-header font-weight-bold">
-            {{ trans('cruds.permission.title_singular') }} {{ trans('global.list') }}
+        <i class="cil-list"></i> {{ trans('global.list') }} {{ trans('cruds.permission.title_singular') }}
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-Permission" style="width: 100%" >
+                <table class=" table table-outline table-striped table-hover datatable datatable-Permission" style="width: 100%" >
                     <thead>
-                    <tr>
-                        <th width="10">
-
-                        </th>
-                        <th>
-                            {{ trans('cruds.permission.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.permission.fields.title') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
+                        <tr class="thead-light text-center">
+                            <th>
+                                {{ trans('cruds.permission.fields.title') }}
+                            </th>
+                            <th>
+                                Aksi
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach($permissions as $key => $permission)
                         <tr data-entry-id="{{ $permission->id }}">
                             <td>
-
-                            </td>
-                            <td>
-                                {{ $permission->id ?? '' }}
-                            </td>
-                            <td>
                                 {{ $permission->title ?? '' }}
                             </td>
-                            <td>
+                            <td class="text-center">
                                 @can('permission_view')
-                                    {!! cui_btn_view(route('admin.permissions.show', [$permission->id])) !!}
+                                    {!! cui()->btn_view(route('admin.permissions.show', $permission->id)) !!}
                                 @endcan
 
                                 @can('permission_manage')
-                                    {{--                                        {!! cui_btn_edit(route('admin.permissions.edit', [$permission->id])) !!}--}}
-                                    {!! cui_btn_delete(route('admin.permissions.destroy', [$permission->id]), "Anda yakin akan menghapus data permission ini?") !!}
+                                    {!! cui()->btn_delete(route('admin.permissions.destroy', $permission->id), "Anda yakin akan menghapus data Permission ini?") !!}
                                 @endcan
 
                             </td>

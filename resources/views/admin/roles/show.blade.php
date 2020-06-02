@@ -3,66 +3,53 @@
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
         'Role' => route('admin.roles.index'),
-        'Detail' => '#'
+        'Lihat' => '#'
     ]) !!}
 @stop
 @section('toolbar')
-    @can('permission_manage')
-        {!! cui_toolbar_btn(route('admin.roles.index'), 'icon-list', trans('global.list').' '.trans('cruds.role.title_singular') ) !!}
-        {!! cui_toolbar_btn(route('admin.roles.edit',[$role->id]), 'icon-pencil', trans('global.edit').' '.trans('cruds.role.title_singular') ) !!}
-        {!! cui_toolbar_btn(route('admin.roles.destroy',[$role->id]), 'icon-trash', trans('global.delete').' '.trans('cruds.role.title_singular') ) !!}
+    @can('role_manage')
+        {!! cui()->toolbar_delete(route('admin.roles.destroy', $role->id), $role->id, 'cil-trash', 'Hapus', 'Anda yakin akan menghapus data ini?') !!}
+        {!! cui()->toolbar_btn(route('admin.roles.edit', $role->id), 'cil-pencil', 'Edit') !!}
+        {!! cui()->toolbar_btn(route('admin.roles.create'), 'cil-plus', 'Tambah') !!}
+    @endcan
+    @can('role_view')
+        {!! cui()->toolbar_btn(route('admin.roles.index'), 'cil-list', 'List Program Studi') !!}
     @endcan
 @stop
 @section('content')
 
 <div class="card">
     <div class="card-header font-weight-bold">
-        {{ trans('global.show') }} {{ trans('cruds.role.title') }}
+        <i class="cil-zoom"></i> Lihat Role
     </div>
 
     <div class="card-body">
-        <div class="form-group">
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.roles.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <strong>{{ trans('cruds.role.fields.id') }}</strong>
+                </div>
+                <div class="col-sm-10">
+                {{ $role->id }}
+                </div>
             </div>
-            <table class="table table-bordered table-striped">
-                <tbody>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.role.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $role->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.role.fields.title') }}
-                        </th>
-                        <td>
-                            {{ $role->title }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.role.fields.permissions') }}
-                        </th>
-                        <td>
-                            @foreach($role->permissions as $key => $permissions)
-                                <span class="label label-info">{{ $permissions->title }}</span>
-                            @endforeach
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-group">
-                <a class="btn btn-default" href="{{ route('admin.roles.index') }}">
-                    {{ trans('global.back_to_list') }}
-                </a>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <strong>{{ trans('cruds.role.fields.title') }}</strong>
+                </div>
+                <div class="col-sm-10">
+                {{ $role->title }}
+                </div>
             </div>
-        </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <strong>{{ trans('cruds.role.fields.permissions') }}</strong>
+                </div>
+                <div class="col-sm-10">
+                    @foreach($role->permissions as $key => $permissions)
+                        <span class="label label-info">{{ $permissions->title }}</span>
+                    @endforeach
+                </div>
+            </div>
     </div>
 </div>
 

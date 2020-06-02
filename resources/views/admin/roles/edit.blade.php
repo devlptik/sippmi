@@ -8,22 +8,21 @@
 @stop
 @section('toolbar')
     @can('permission_view')
-        {!! cui_toolbar_btn(route('admin.roles.index'), 'icon-list', trans('global.list').' '.trans('cruds.role.title_singular') ) !!}
+        {!! cui()->toolbar_btn(route('admin.roles.index'), 'cil-list', 'List Role') !!}
     @endcan
 @stop
 @section('content')
-    <div class="col">
         <div class="row">
             <div class="col-sm-8">
+            
+            {{ html()->modelForm($role, 'PUT', route('admin.roles.update', [$role->id]))->class('form')->open() }}
+            
                 <div class="card">
-                    <div class="card-header font-weight-bold">
-                        {{ trans('global.edit') }} {{ trans('cruds.role.title_singular') }}
-                    </div>
+                        <div class="card-header font-weight-bold">
+                            <i class="cil-pencil"></i><strong> Edit Data Role</strong>
+                        </div>
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route("admin.roles.update", [$role->id]) }}" enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
+                        <div class="card-body">
                             <div class="form-group">
                                 <label class="required" for="title">{{ trans('cruds.role.fields.title') }}</label>
                                 <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', $role->title) }}" required>
@@ -52,18 +51,16 @@
                                 @endif
                                 <span class="help-block">{{ trans('cruds.role.fields.permissions_helper') }}</span>
                             </div>
-                            <div class="form-group">
+                        </div>
+                        <div class=" card-footer form-group">
                                 <button class="btn btn-danger" type="submit">
                                     {{ trans('global.save') }}
                                 </button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
                 </div>
+        
+            {{ html()->closeModelForm() }}
+
             </div>
         </div>
-    </div>
-
-
-
 @endsection
