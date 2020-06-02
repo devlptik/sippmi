@@ -3,8 +3,7 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
-        'Program Studi' => route('admin.prodis.index'),
-        'Index' => '#'
+        'Program Studi' => '#'
     ]) !!}
 @endsection
 

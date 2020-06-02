@@ -8,7 +8,7 @@
 @stop
 @section('toolbar')
     @can('kode_rumpun_manage')
-        {!! cui()->toolbar_delete(route('admin.kode-rumpuns.destroy', $prodi->id), $prodi->id, 'cil-trash', 'Hapus', 'Anda yakin akan menghapus data ini?') !!}
+        {!! cui()->toolbar_delete(route('admin.prodis.destroy', $prodi->id), $prodi->id, 'cil-trash', 'Hapus', 'Anda yakin akan menghapus data ini?') !!}
         {!! cui()->toolbar_btn(route('admin.prodis.edit', $prodi->id), 'cil-pencil', 'Edit') !!}
         {!! cui()->toolbar_btn(route('admin.prodis.create'), 'cil-plus', 'Tambah') !!}
     @endcan

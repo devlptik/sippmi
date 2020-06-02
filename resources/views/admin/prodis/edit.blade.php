@@ -20,7 +20,7 @@
                 <div class="card">
 
                     <div class="card-header">
-                        <strong>Edit Data Prodi</strong>
+                        <i class="cil-pencil"></i><strong> Edit Data Prodi</strong>
                     </div>
 
                     <div class="card-body">

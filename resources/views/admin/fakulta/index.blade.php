@@ -44,7 +44,7 @@
                             <td class="text-center">
                                 @can('fakultum_manage')
                                     {!! cui()->btn_edit(route('admin.fakulta.edit', $fakultum->id)) !!}
-                                    {!! cui()->btn_delete(route('admin.fakulta.destroy', $fakultum->id), "Anda yakin akan menghapus data Program Studi ini?") !!}
+                                    {!! cui()->btn_delete(route('admin.fakulta.destroy', $fakultum->id), "Anda yakin akan menghapus data Fakultas ini?") !!}
                                 @endcan
                             </td>
 
