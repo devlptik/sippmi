@@ -82,7 +82,7 @@
             </div>
             <div class="col-sm-6">
                 @include('admins.referensis.ref_skemas.questions._index', ['questions' => $refSkema->questions, 'skema' => $refSkema])
-                @include('admin.ref_skemas.output_skemas._index', ['output' => $refSkema->skemaOutputSkemas,'skema' => $refSkema])
+                @include('admins.referensis.ref_skemas.output_skemas._index', ['output' => $refSkema->skemaOutputSkemas,'skema' => $refSkema])
             </div>
         </div>
     </div>

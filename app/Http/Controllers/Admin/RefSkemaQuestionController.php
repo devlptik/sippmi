@@ -16,7 +16,7 @@ class RefSkemaQuestionController extends Controller
     {
         abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, 403);
 
-        return view('admins.ref_skemas.questions.create', compact('refSkema'));
+        return view('admins.referensis.ref_skemas.questions.create', compact('refSkema'));
     }
 
     public function store(Request $request, RefSkema $refSkema)
@@ -40,7 +40,7 @@ class RefSkemaQuestionController extends Controller
     {
         abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, 403);
 
-        return view('admins.ref_skemas.questions.edit', compact('refSkema', 'question'));
+        return view('admins.referensis.ref_skemas.questions.edit', compact('refSkema', 'question'));
     }
 
     public function update(Request $request, RefSkema $refSkema, RefSkemaQuestion $question){

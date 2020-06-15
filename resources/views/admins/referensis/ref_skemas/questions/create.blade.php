@@ -5,7 +5,7 @@
         'Home' => route('admin.home'),
         'Skema' => route('admin.ref-skemas.index'),
         'Peertanyaan' => route('admin.ref-skemas.show', [$refSkema->id]),
-        'Edit' => '#'
+        'Tambah' => '#'
     ]) !!}
 @endsection
 
@@ -13,7 +13,6 @@
     @can('ref_skema_manage')
         {!! cui_toolbar_btn(route('admin.ref-skemas.index'), 'cil-list', trans('global.list').' '.trans('cruds.refSkema.title_singular') ) !!}
         {!! cui_toolbar_btn(route('admin.ref-skemas.show', [$refSkema->id]), 'cil-zoom', trans('global.show').' '.trans('cruds.refSkema.title_singular') ) !!}
-        {!! cui_toolbar_btn(route('admin.ref-skemas.questions.create', [$refSkema->id]), 'cil-plus', 'Tambah Pertanyaan' ) !!}
     @endcan
 @endsection
 
@@ -21,7 +20,7 @@
 
     <div class="card">
 
-        {{ html()->modelForm($question, 'PUT', route('admin.ref-skemas.questions.update', [$refSkema->id, $question->id]))->open() }}
+        {{ html()->form('POST', route('admin.ref-skemas.questions.store', [$refSkema->id]))->open() }}
 
         <div class="card-header">
             <strong><i class="cil-description"></i> Tambah Pertanyaan</strong>
@@ -29,15 +28,15 @@
 
         <div class="card-body">
 
-            @include('admins.ref_skemas.questions._form')
+            @include('admins.referensis.ref_skemas.questions._form')
 
         </div>
 
         <div class="card-footer">
-            <input type="submit" class="btn btn-primary" value="Edit">
+            <input type="submit" class="btn btn-primary" value="Tambah">
         </div>
 
-        {{  html()->closeModelForm() }}
+        {{  html()->form()->close() }}
 
     </div>
 
