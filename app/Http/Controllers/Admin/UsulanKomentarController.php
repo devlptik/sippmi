@@ -46,10 +46,9 @@ class UsulanKomentarController extends Controller
         return redirect()->route('admin.penelitians.show', $usulan->id);
     }
 
-    public function destroy(Request $request, Usulan $usulan, UsulanKomentar $usulanKomentar)
+    public function destroy(Request $request, Usulan $usulan, UsulanKomentar $komentar)
     {
-        $usulanKomentar->delete();
-        $usulanKomentar->save();
+        $komentar->delete();
         return redirect()->route('admin.penelitians.show', [$usulan->id]);
     }
 
