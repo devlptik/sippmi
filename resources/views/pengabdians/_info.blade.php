@@ -19,14 +19,14 @@
     </div>
 </div>
 
-<div class="form-group row">
-    <div class="col-sm-2">
-        <strong>Kode Rumpun Ilmu</strong>
-    </div>
-    <div class="col-sm-10">
-        {{ optional($pengabdian->kode_rumpun)->rumpun_ilmu }}
-    </div>
-</div>
+{{--<div class="form-group row">--}}
+{{--    <div class="col-sm-2">--}}
+{{--        <strong>Kode Rumpun Ilmu</strong>--}}
+{{--    </div>--}}
+{{--    <div class="col-sm-10">--}}
+{{--        {{ optional($pengabdian->kode_rumpun)->rumpun_ilmu }}--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="form-group row">
     <div class="col-sm-2">
@@ -58,18 +58,18 @@
                     Proposal
                 </a>
             </div>
-            <div class="col-sm-3">
-                <a href="{{ $pengabdian->getFileCvUrl() }}" target="_blank">
-                    <i class="fa fa-file-pdf-o text-danger"></i>
-                    CV
-                </a>
-            </div>
-            <div class="col-sm-3">
-                <a href="{{ $pengabdian->getFilePengesahanUrl() }}" target="_blank">
-                    <i class="fa fa-file-pdf-o text-danger"></i>
-                    Lembaran Pengesahan
-                </a>
-            </div>
+{{--            <div class="col-sm-3">--}}
+{{--                <a href="{{ $pengabdian->getFileCvUrl() }}" target="_blank">--}}
+{{--                    <i class="fa fa-file-pdf-o text-danger"></i>--}}
+{{--                    CV--}}
+{{--                </a>--}}
+{{--            </div>--}}
+{{--            <div class="col-sm-3">--}}
+{{--                <a href="{{ $pengabdian->getFilePengesahanUrl() }}" target="_blank">--}}
+{{--                    <i class="fa fa-file-pdf-o text-danger"></i>--}}
+{{--                    Lembaran Pengesahan--}}
+{{--                </a>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>

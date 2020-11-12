@@ -68,7 +68,6 @@ class PenelitianController extends Controller
     {
         abort_if(Gate::denies('penelitian_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-
         // Tambah usulan
         $usulan = new Usulan();
         $usulan->pengusul_id = auth()->user()->id;

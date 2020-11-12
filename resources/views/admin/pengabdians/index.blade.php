@@ -78,12 +78,12 @@
                         <th class="text-center">
                             Proposal
                         </th>
-                        <th class="text-center">
-                            CV
-                        </th>
-                        <th class="text-center">
-                            Lembaran<br>Pengesahan
-                        </th>
+{{--                        <th class="text-center">--}}
+{{--                            CV--}}
+{{--                        </th>--}}
+{{--                        <th class="text-center">--}}
+{{--                            Lembaran<br>Pengesahan--}}
+{{--                        </th>--}}
                         <th class="text-center">
                             Status<br>Pengabdian
                         </th>
@@ -132,22 +132,22 @@
                                     </a>
                                 @endif
                             </td>
-                            <td class="text-center">
-                                @if(!empty($pengabdian->file_cv))
-                                    <a href="{{ $pengabdian->getFileCvPath() }}" target="_blank">
-                                        <i class="fa fa-file-pdf-o text-danger"></i>
-                                    </a>
-                                @endif
+{{--                            <td class="text-center">--}}
+{{--                                @if(!empty($pengabdian->file_cv))--}}
+{{--                                    <a href="{{ $pengabdian->getFileCvPath() }}" target="_blank">--}}
+{{--                                        <i class="fa fa-file-pdf-o text-danger"></i>--}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
 
-                            </td>
-                            <td class="text-center">
-                                @if(!empty($pengabdian->file_pengesahan))
-                                    <a href="{{ $pengabdian->getFilePengesahanPath() }}" target="_blank">
-                                        <i class="fa fa-file-pdf-o text-danger"></i>
-                                    </a>
-                                @endif
+{{--                            </td>--}}
+{{--                            <td class="text-center">--}}
+{{--                                @if(!empty($pengabdian->file_pengesahan))--}}
+{{--                                    <a href="{{ $pengabdian->getFilePengesahanPath() }}" target="_blank">--}}
+{{--                                        <i class="fa fa-file-pdf-o text-danger"></i>--}}
+{{--                                    </a>--}}
+{{--                                @endif--}}
 
-                            </td>
+{{--                            </td>--}}
                             <td class="text-center">
                                 <h5>
                                     <span class="badge badge-{!! $pengabdian->statusTextColor !!}">

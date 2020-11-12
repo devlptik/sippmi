@@ -292,14 +292,6 @@
                             </a>
                         </li>
                     @endcan
-                    @can('output_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.outputs.index") }}"
-                               class="c-sidebar-nav-link {{ request()->is('admin/outputs') || request()->is('admin/outputs/*') ? 'active' : '' }}">
-                                {{ trans('cruds.output.title') }}
-                            </a>
-                        </li>
-                    @endcan
                 </ul>
             </li>
         @endcan

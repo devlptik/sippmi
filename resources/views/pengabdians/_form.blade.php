@@ -80,22 +80,22 @@
     <span class="help-block">{{ trans('cruds.pengabdian.fields.biaya_helper') }}</span>
 </div>
 
-<div class="form-group">
-    <label for="file_pengesahan">Lembaran Pengesahan</label>
-    {{ html()->input('file', 'file_pengesahan')->id('file_pengesahan')->class('form-control') }}
-    @if($errors->has('file_pengesahan'))
-        <div class="invalid-feedback">
-            {{ $errors->first('file_pengesahan') }}
-        </div>
-    @endif
-    <span class="help-block">{{ trans('cruds.pengabdian.fields.file_proposal_helper') }}</span>
-    @if(isset($pengabdian) && !empty($pengabdian->file_pengesahan))
-        <a href="{{ $pengabdian->getFilePengesahanUrl() ?? '' }}" target="_blank">
-            <i class="fa fa-file-pdf text-danger"></i>
-            Download
-        </a>
-    @endif
-</div>
+{{--<div class="form-group">--}}
+{{--    <label for="file_pengesahan">Lembaran Pengesahan</label>--}}
+{{--    {{ html()->input('file', 'file_pengesahan')->id('file_pengesahan')->class('form-control') }}--}}
+{{--    @if($errors->has('file_pengesahan'))--}}
+{{--        <div class="invalid-feedback">--}}
+{{--            {{ $errors->first('file_pengesahan') }}--}}
+{{--        </div>--}}
+{{--    @endif--}}
+{{--    <span class="help-block">{{ trans('cruds.pengabdian.fields.file_proposal_helper') }}</span>--}}
+{{--    @if(isset($pengabdian) && !empty($pengabdian->file_pengesahan))--}}
+{{--        <a href="{{ $pengabdian->getFilePengesahanUrl() ?? '' }}" target="_blank">--}}
+{{--            <i class="fa fa-file-pdf text-danger"></i>--}}
+{{--            Download--}}
+{{--        </a>--}}
+{{--    @endif--}}
+{{--</div>--}}
 
 <div class="form-group">
     <label for="file_proposal">File Proposal</label>
@@ -114,19 +114,19 @@
     @endif
 </div>
 
-<div class="form-group">
-    <label for="file_cv">File CV</label>
-    {{ html()->input('file', 'file_cv')->id('file_cv')->class('form-control') }}
-    @if($errors->has('file_proposal'))
-        <div class="invalid-feedback">
-            {{ $errors->first('file_cv') }}
-        </div>
-    @endif
-    <span class="help-block">{{ trans('cruds.pengabdian.fields.file_proposal_helper') }}</span>
-    @if(isset($pengabdian) && !empty($pengabdian->file_cv))
-        <a href="{{ $pengabdian->getFileCvUrl() ?? ''->getFileCvUrl() }}" target="_blank">
-            <i class="fa fa-file-pdf text-danger"></i>
-            Download
-        </a>
-    @endif
-</div>
+{{--<div class="form-group">--}}
+{{--    <label for="file_cv">File CV</label>--}}
+{{--    {{ html()->input('file', 'file_cv')->id('file_cv')->class('form-control') }}--}}
+{{--    @if($errors->has('file_proposal'))--}}
+{{--        <div class="invalid-feedback">--}}
+{{--            {{ $errors->first('file_cv') }}--}}
+{{--        </div>--}}
+{{--    @endif--}}
+{{--    <span class="help-block">{{ trans('cruds.pengabdian.fields.file_proposal_helper') }}</span>--}}
+{{--    @if(isset($pengabdian) && !empty($pengabdian->file_cv))--}}
+{{--        <a href="{{ $pengabdian->getFileCvUrl() ?? ''->getFileCvUrl() }}" target="_blank">--}}
+{{--            <i class="fa fa-file-pdf text-danger"></i>--}}
+{{--            Download--}}
+{{--        </a>--}}
+{{--    @endif--}}
+{{--</div>--}}

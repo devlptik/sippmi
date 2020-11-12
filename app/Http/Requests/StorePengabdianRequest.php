@@ -26,8 +26,8 @@ class StorePengabdianRequest extends FormRequest
             'mitra_pengabdian' => ['required'],
             'skema_id' => ['required'],
             'biaya'    => ['required','integer','min:'.$skema->biaya_minimal,'max:'.$skema->biaya_maksimal],
-            'file_cv'  => ['required', 'mimes:pdf'],
-            'file_pengesahan' => ['required' , 'mimes:pdf'],
+            'file_cv'  => ['required', 'sometimes', 'mimes:pdf'],
+            'file_pengesahan' => ['required' , 'sometimes', 'mimes:pdf'],
             'file_proposal' => ['required', 'mimes:pdf']
         ];
     }
