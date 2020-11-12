@@ -2,53 +2,33 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
-        'Fakultas' => route('admin.fakulta.index'),
-        'Index' => '#'
+        'Fakultas' => '#'
     ]) !!}
 @stop
 @section('toolbar')
     @can('fakultum_manage')
-        {!! cui_toolbar_btn(route('admin.fakulta.create'), 'icon-plus', trans('global.add').' '.trans('cruds.fakultum.title_singular') ) !!}
+        {!! cui_toolbar_btn(route('admin.fakulta.create'), 'cil-plus', 'Tambah Fakultas') !!}
     @endcan
 @stop
 @section('content')
-
-@can('fakultum_manage')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.fakulta.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.fakultum.title_singular') }}
-            </a>
-        </div>
-    </div>
-@endcan
 <div class="card">
     <div class="card-header font-weight-bold">
-        {{ trans('cruds.fakultum.title_singular') }} {{ trans('global.list') }}
+        <i class="cil-list"></i> List Fakultas
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Fakultum" style="width: 100%">
+            <table class=" table table-outline table-striped table-hover datatable datatable-Fakultum" style="width: 100%">
                 <thead>
-                    <tr>
-                        <th width="10">
-
-                        </th>
-                        <th>
-                            {{ trans('cruds.fakultum.fields.id') }}
-                        </th>
+                    <tr class="thead-light">
                         <th>
                             {{ trans('cruds.fakultum.fields.nama') }}
                         </th>
                         <th>
                             {{ trans('cruds.fakultum.fields.singkatan') }}
                         </th>
-                        <th>
-                            {{ trans('cruds.fakultum.fields.kode') }}
-                        </th>
-                        <th>
-                            &nbsp;
+                        <th class="text-center">
+                            Aksi
                         </th>
                     </tr>
                 </thead>
@@ -56,36 +36,16 @@
                     @foreach($fakulta as $key => $fakultum)
                         <tr data-entry-id="{{ $fakultum->id }}">
                             <td>
-
-                            </td>
-                            <td>
-                                {{ $fakultum->id ?? '' }}
-                            </td>
-                            <td>
                                 {{ $fakultum->nama ?? '' }}
                             </td>
                             <td>
                                 {{ $fakultum->singkatan ?? '' }}
                             </td>
-                            <td>
-                                {{ $fakultum->kode ?? '' }}
-                            </td>
-                            <td>
-
+                            <td class="text-center">
                                 @can('fakultum_manage')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.fakulta.edit', $fakultum->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
+                                    {!! cui()->btn_edit(route('admin.fakulta.edit', $fakultum->id)) !!}
+                                    {!! cui()->btn_delete(route('admin.fakulta.destroy', $fakultum->id), "Anda yakin akan menghapus data Fakultas ini?") !!}
                                 @endcan
-
-                                @can('fakultum_manage')
-                                    <form action="{{ route('admin.fakulta.destroy', $fakultum->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
                             </td>
 
                         </tr>
