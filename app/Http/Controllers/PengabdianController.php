@@ -124,10 +124,9 @@ class PengabdianController extends Controller
         $skema = RefSkema::findOrFail($pengabdian->skema_id);
 
         $data = [
-            'anggota' => $pengabdian->usulan->anggotas()->count(),
+            'anggota' => $pengabdian->usulan->anggotas()->tipe(1)->count(),
             'anggota_mahasiswa' => $pengabdian->usulan->anggotas()->tipe(2)->count()
         ];
-
 
         Validator::make($data, [
             'anggota' => 'integer|min:' . $skema->anggota_min . '|max:' . $skema->anggota_max,
