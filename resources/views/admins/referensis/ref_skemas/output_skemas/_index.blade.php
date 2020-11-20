@@ -6,17 +6,35 @@
     <div class="card-body">
         <div>
             <div class="row">
-                <div class="col-sm-7">
-                    <strong>NO</strong>
-                </div>
-                <div class="col-sm-2 text-center">
+                <div class="col-sm-6">
                     <strong>Output</strong>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <strong>Wajib</strong>
                 </div>
                 <div class="col-sm-3 text-center">
                     <strong>Aksi</strong>
                 </div>
             </div>
 
+            @foreach($refSkema->outputs as $output)
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ $output->luaran }}
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        @if($output->pivot->required)
+                            Ya
+                        @else
+                            Tidak
+                        @endif
+                    </div>
+                    <div class="col-sm-3 text-center">
+                        {!! cui_btn_edit(route('admin.output-skemas.edit', [$skema->id, $output->pivot->id])) !!}
+                        {!! cui_btn_delete(route('admin.output-skemas.destroy', [$skema->id, $output->pivot->id]), 'Anda yakin akan menghapus pertanyaan ini?') !!}
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 

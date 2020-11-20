@@ -15,24 +15,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OutputSkemaController extends Controller
 {
-    public function index($refSkema_id)
-    {
-        abort_if(Gate::denies('output_skema_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $outputSkemas = OutputSkema::all();
-
-        return view('admin.outputSkemas.index', compact('outputSkemas'));
-    }
 
     public function create($refSkema_id)
     {
         abort_if(Gate::denies('output_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $outputs = Output::all()->pluck('luaran', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $outputs = Output::all()->pluck('luaran', 'id');
+        $refSkema = RefSkema::find($refSkema_id);
 
-        $skemas = RefSkema::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.outputSkemas.create', compact('outputs', 'skemas','refSkema_id'));
+        return view('admins.referensis.ref_skemas.output_skemas.create', compact('outputs','refSkema_id', 'refSkema'));
     }
 
     public function store(StoreOutputSkemaRequest $request, $refSkema_id)
@@ -46,30 +38,27 @@ class OutputSkemaController extends Controller
     {
         abort_if(Gate::denies('output_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $outputs = Output::all()->pluck('luaran', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $outputs = Output::all()->pluck('luaran', 'id');
+        $refSkema = RefSkema::find($refSkema_id);
 
-        $skemas = RefSkema::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $outputSkema->load('output', 'skema');
-
-        return view('admin.outputSkemas.edit', compact('outputs', 'skemas', 'outputSkema','refSkema_id'));
+        return view('admins.referensis.ref_skemas.output_skemas.edit', compact('outputs', 'refSkema', 'outputSkema', 'refSkema_id'));
     }
 
     public function update(UpdateOutputSkemaRequest $request,$refSkema_id, OutputSkema $outputSkema)
     {
-        $outputSkema->update($request->all());
+        $outputSkema->output_id = $request->get('output_id');
+        $outputSkema->field = $request->get('field');
+        $outputSkema->mime = $request->get('mime');
+        if($request->has('required')){
+            $outputSkema->required = true;
+        }else{
+            $outputSkema->required = false;
+        }
+        $outputSkema->save();
 
-        return redirect()->route('admin.output-skemas.index');
+        return redirect()->route('admin.ref-skemas.show', [$refSkema_id]);
     }
 
-    public function show($refSkema_id, OutputSkema $outputSkema)
-    {
-        abort_if(Gate::denies('output_skema_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $outputSkema->load('output', 'skema', 'outputSkemaPenelitianOutputs', 'outputSkemaPengabdianOutputs');
-
-        return view('admin.outputSkemas.show', compact('outputSkema','refSkema_id'));
-    }
 
     public function destroy($refSkema_id, OutputSkema $outputSkema)
     {

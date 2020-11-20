@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OutputSkema extends Model
 {
-    use SoftDeletes;
-
     public $table = 'output_skemas';
 
     protected $dates = [

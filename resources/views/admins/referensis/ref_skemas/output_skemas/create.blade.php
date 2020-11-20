@@ -15,68 +15,81 @@
 @section('content')
 <div class="col">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-6">
+
+            <div class="card">
+
+                <div class="card-header font-weight-bold">
+                    {{ trans('global.show') }} {{ trans('cruds.refSkema.title') }}
+                </div>
+
+                <div class="card-body">
+
+                    <h4>{{ $refSkema->nama }}</h4>
+
+                    <hr>
+
+                    <!-- Static Field for Jenis Usulan -->
+                    <div class="form-group">
+                        <div class="form-label">Jenis Usulan</div>
+                        <div>{{ App\RefSkema::JENIS_USULAN_SELECT[$refSkema->jenis_usulan] ?? '' }}</div>
+                    </div>
+
+
+                    <!-- Static Field for Jangka Waktu -->
+                    <div class="form-group">
+                        <div class="form-label">Jangka Waktu</div>
+                        <div>{{ $refSkema->jangka_waktu }}</div>
+                    </div>
+
+                    <!-- Static Field for Sumber Dana -->
+                    <div class="form-group">
+                        <div class="form-label">Sumber Dana</div>
+                        <div>{{ $refSkema->sumber_dana }}</div>
+                    </div>
+
+                    <!-- Static Field for Biaya -->
+                    <div class="form-group">
+                        <div class="form-label">Biaya</div>
+                        <div> {{ format_rupiah($refSkema->biaya_minimal) }} s/d {{ format_rupiah($refSkema->biaya_maksimal) }}</div>
+                    </div>
+
+                    <!-- Static Field for Jumlah Peneliti (termasuk Ketua) -->
+                    <div class="form-group">
+                        <div class="form-label">Jumlah Peneliti (termasuk Ketua)</div>
+                        <div>{{ $refSkema->anggota_min }} s/d {{ $refSkema->anggota_max }}</div>
+                    </div>
+
+                    <!-- Static Field for Jumlah Anggota Mahasiswa  -->
+                    <div class="form-group">
+                        <div class="form-label">Jumlah Anggota Mahasiswa</div>
+                        <div>{{ $refSkema->mahasiswa_min }} s/d {{ $refSkema->mahasiswa_max }}</div>
+                    </div>
+
+                    <!-- Static Field for Tanggal Submit Proposal -->
+                    <div class="form-group">
+                        <div class="form-label">Tanggal Submit Proposal</div>
+                        <div>{{ $refSkema->tanggal_mulai }} s/d {{ $refSkema->tanggal_selesai }}</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-sm-6">
             <div class="card">
                 <div class="card-header font-weight-bold">
                     {{ trans('global.create') }} {{ trans('cruds.outputSkema.title_singular') }}
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route("admin.output-skemas.store",[$refSkema_id]) }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label class="required" for="output_id">{{ trans('cruds.outputSkema.fields.output') }}</label>
-                            <select class="form-control select2 {{ $errors->has('output') ? 'is-invalid' : '' }}" name="output_id" id="output_id" required>
-                                @foreach($outputs as $id => $output)
-                                    <option value="{{ $id }}" {{ old('output_id') == $id ? 'selected' : '' }}>{{ $output }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('output_id'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('output_id') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.outputSkema.fields.output_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="field">{{ trans('cruds.outputSkema.fields.field') }}</label>
-                            <input class="form-control {{ $errors->has('field') ? 'is-invalid' : '' }}" type="text" name="field" id="field" value="{{ old('field', '') }}" required>
-                            @if($errors->has('field'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('field') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.outputSkema.fields.field_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="mime">{{ trans('cruds.outputSkema.fields.mime') }}</label>
-                            <input class="form-control {{ $errors->has('mime') ? 'is-invalid' : '' }}" type="text" name="mime" id="mime" value="{{ old('mime', '') }}">
-                            @if($errors->has('mime'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('mime') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.outputSkema.fields.mime_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check {{ $errors->has('required') ? 'is-invalid' : '' }}">
-                                <input type="hidden" name="required" value="0">
-                                <input class="form-check-input" type="checkbox" name="required" id="required" value="1" {{ old('required', 0) == 1 || old('required') === null ? 'checked' : '' }}>
-                                <label class="form-check-label" for="required">{{ trans('cruds.outputSkema.fields.required') }}</label>
-                            </div>
-                            @if($errors->has('required'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('required') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.outputSkema.fields.required_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-danger" type="submit">
-                                {{ trans('global.save') }}
-                            </button>
-                        </div>
-                    </form>
+
+                    {{ html()->form('POST', route("admin.output-skemas.store",[$refSkema_id]))->open() }}
+
+                        @include('admins.referensis.ref_skemas.output_skemas._form')
+
+                    {{ html()->closeModelForm() }}
                 </div>
             </div>
         </div>
