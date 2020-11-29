@@ -21,8 +21,14 @@
 
     <ul class="c-header-nav mfs-auto">
         <li class="c-header-nav-item dropdown">
-            <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
+            <a
+                class="c-header-nav-link"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+            >
                 <div class="c-avatar">
                     <img class="c-avatar-img" src="{{ Avatar::create(Auth::user()->nama)->toBase64() }}"
                          alt="user@email.com">

@@ -62,26 +62,8 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="card border-warning mb-3">
-                <div class="card-header">
-                    <strong>Komentar/Peringatan</strong>
-                </div>
 
-                <div class="card-body text-warning">
-                    @include('admin.usulanKomentars.index')
-                </div>
-            </div>
-
-            <div class="card mb-3">
-                <div class="card-header">
-                    <strong>Luaran Penelitian</strong>
-                </div>
-
-                <div class="card-body">
-                    @include('penelitians.outputs._index')
-                </div>
-            </div>
-
+            @include('penelitians.outputs._form')
 
         </div>
 

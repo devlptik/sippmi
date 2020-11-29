@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PenelitianOutput extends Model
 {
-    use SoftDeletes;
-
     public $table = 'penelitian_outputs';
 
     protected $dates = [
@@ -28,6 +26,8 @@ class PenelitianOutput extends Model
         'tanggal_upload',
         'output_skema_id',
     ];
+
+
 
     public function output_skema()
     {

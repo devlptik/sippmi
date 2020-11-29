@@ -11,6 +11,8 @@ Route::get('penelitian/{penelitian}/review', 'PenelitianController@review')->nam
 Route::get('penelitian/{penelitian}/eksekutif', 'PenelitianController@eksekutif')->name('penelitians.eksekutif');
 Route::post('penelitian/{penelitian}/eksekutif', 'PenelitianController@storeringkasan')->name('penelitians.storeeksekutif');
 
+Route::resource('penelitian/{penelitian}/output', 'PenelitianOutputController');
+
 Route::resource('penelitians', 'PenelitianController');
 Route::resource('penelitian.anggota', 'PenelitianAnggotaController');
 Route::post('penelitian/{id}/anggota/mahasiswa-store','PenelitianAnggotaController@mahasiswaStore')->name('penelitian.anggota-mahasiswa.store');

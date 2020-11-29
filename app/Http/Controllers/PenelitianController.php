@@ -152,7 +152,19 @@ class PenelitianController extends Controller
 
         $penelitian->load('skema', 'kode_rumpun', 'prodi', 'tahapan');
 
-        return view('penelitians.show', compact('penelitian'));
+        $outputs = Penelitian::select('penelitians.id as penelitian_id',
+                'outputs.luaran as luaran',
+                'output_skemas.id as output_skema_id',
+                'output_skemas.required as required',
+                'penelitian_outputs.id as penelitian_output_id',
+                'penelitian_outputs.filename as filename')
+            ->leftJoin('output_skemas', 'output_skemas.skema_id', '=', 'penelitians.skema_id')
+            ->leftJoin('outputs', 'outputs.id', '=', 'output_skemas.output_id')
+            ->leftJoin('penelitian_outputs', 'penelitian_outputs.output_skema_id', '=', 'output_skemas.id')
+            ->where('penelitians.id', $penelitian->id)
+            ->get();
+
+        return view('penelitians.show', compact('penelitian', 'outputs'));
     }
 
     public function destroy(Penelitian $penelitian)
