@@ -160,7 +160,10 @@ class PenelitianController extends Controller
                 'penelitian_outputs.filename as filename')
             ->leftJoin('output_skemas', 'output_skemas.skema_id', '=', 'penelitians.skema_id')
             ->leftJoin('outputs', 'outputs.id', '=', 'output_skemas.output_id')
-            ->leftJoin('penelitian_outputs', 'penelitian_outputs.output_skema_id', '=', 'output_skemas.id')
+            ->leftJoin('penelitian_outputs', function ($join) use ($penelitian){
+                $join->on('penelitian_outputs.output_skema_id', '=', 'output_skemas.id')
+                    ->where('penelitian_outputs.penelitian_id', $penelitian->id);
+            })
             ->where('penelitians.id', $penelitian->id)
             ->get();
 
