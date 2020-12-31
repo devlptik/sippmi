@@ -1,4 +1,4 @@
-{{ html()->form('POST', route('output.store', [$pengabdian->id]))->acceptsFiles()->open() }}
+{{ html()->form('POST', route('pengabdian.output.store', [$pengabdian->id]))->acceptsFiles()->open() }}
 
 {{ html()->hidden('pengabdian_id', $pengabdian->id) }}
 {{ html()->hidden('output_skema_id', $output_skema->id) }}

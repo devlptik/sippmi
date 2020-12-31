@@ -22,9 +22,9 @@
             </td>
             <td>
                 @if(empty($output->filename))
-                    <a href="{{ route('output.show', [$output->pengabdian_id, $output->output_skema_id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i> </a>
+                    <a href="{{ route('pengabdian.output.show', [$output->pengabdian_id, $output->output_skema_id]) }}" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i> </a>
                 @else
-                    {!! cui()->btn_delete(route('output.destroy', [$output->pengabdian_id, $output->pengabdian_output_id]), 'Anda yakin akan menghapus file ini?') !!}
+                    {!! cui()->btn_delete(route('pengabdian.output.destroy', [$output->pengabdian_id, $output->pengabdian_output_id]), 'Anda yakin akan menghapus file ini?') !!}
                 @endif
             </td>
         </tr>
