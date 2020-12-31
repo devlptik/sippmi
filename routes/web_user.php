@@ -23,6 +23,8 @@ Route::get('pengabdian/{pengabdian}/review', 'PengabdianController@review')->nam
 Route::get('pengabdian/{pengabdian}/eksekutif', 'PengabdianController@eksekutif')->name('pengabdians.eksekutif');
 Route::post('pengabdian/{pengabdian}/eksekutif', 'PengabdianController@storeringkasan')->name('pengabdians.storeeksekutif');
 
+Route::resource('pengabdian/{pengabdian}/output', 'PengabdianOutputController');
+
 Route::resource('pengabdians', 'PengabdianController');
 Route::resource('pengabdian.anggota', 'PengabdianAnggotaController');
 Route::post('pengabdian/{id}/anggota/mahasiswa-store','PengabdianAnggotaController@mahasiswaStore')->name('pengabdians.anggota-mahasiswa.store');

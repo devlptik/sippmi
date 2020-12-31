@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PengabdianOutput extends Model
 {
-    use SoftDeletes;
-
     public $table = 'pengabdian_outputs';
 
     protected $dates = [

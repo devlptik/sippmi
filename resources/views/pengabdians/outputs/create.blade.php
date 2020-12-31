@@ -19,7 +19,7 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Informasi Detail Usulan pengabdian</strong>
+                    <strong>Informasi Detail Usulan Pengabdian</strong>
                 </div>
 
                 <div class="card-body">
@@ -28,7 +28,7 @@
 
                     <div class="form-group row">
                         <label for="judul" class="col-sm-2 col-form-label">
-                            <strong>Peneliti</strong>
+                            <strong>Pengabdi</strong>
                         </label>
                         <div class="col-sm-10">
                             @include('pengabdians.anggota._info')
@@ -62,26 +62,9 @@
         </div>
 
         <div class="col-sm-4">
-            <div class="card border-warning mb-3">
-                <div class="card-header">
-                    <strong>Komentar/Peringatan</strong>
-                </div>
 
-                <div class="card-body text-warning">
-                    @include('admin.usulanKomentars.index')
-                </div>
+            @include('pengabdians.outputs._form')
 
-            </div>
-
-            <div class="card mb-3">
-                <div class="card-header">
-                    <strong>Luaran Pengabdian</strong>
-                </div>
-
-                <div class="card-body">
-                    @include('pengabdians.outputs._index')
-                </div>
-            </div>
         </div>
 
     </div>

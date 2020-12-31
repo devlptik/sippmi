@@ -159,7 +159,22 @@ class PengabdianController extends Controller
 
         $pengabdian->load('skema', 'kode_rumpun', 'prodi');
 
-        return view('pengabdians.show', compact('pengabdian'));
+        $outputs = Pengabdian::select('pengabdians.id as pengabdian_id',
+            'outputs.luaran as luaran',
+            'output_skemas.id as output_skema_id',
+            'output_skemas.required as required',
+            'pengabdian_outputs.id as pengabdian_output_id',
+            'pengabdian_outputs.filename as filename')
+            ->leftJoin('output_skemas', 'output_skemas.skema_id', '=', 'pengabdians.skema_id')
+            ->leftJoin('outputs', 'outputs.id', '=', 'output_skemas.output_id')
+            ->leftJoin('pengabdian_outputs', function ($join) use ($pengabdian){
+                $join->on('pengabdian_outputs.output_skema_id', '=', 'output_skemas.id')
+                    ->where('pengabdian_outputs.pengabdian_id', $pengabdian->id);
+            })
+            ->where('pengabdians.id', $pengabdian->id)
+            ->get();
+
+        return view('pengabdians.show', compact('pengabdian', 'outputs'));
     }
 
 
