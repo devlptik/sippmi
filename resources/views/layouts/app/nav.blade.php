@@ -182,6 +182,12 @@
                             Monitoring Review
                         </a>
                     </li>
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->is('admin.monitoring-luaran') || request()->is('admin.monitoring-luaran/*') ? 'active' : '' }}"
+                           href="{{ route("admin.monitoring-luaran.index") }}">
+                            Monitoring Luaran
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endcan

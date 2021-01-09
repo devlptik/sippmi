@@ -30,7 +30,6 @@ class ProposalMonitoringController extends Controller
             'usulan',
             'usulans'
         ));
-
     }
 
 

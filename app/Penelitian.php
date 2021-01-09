@@ -77,6 +77,11 @@ class Penelitian extends Model
             ->where('jabatan', 2);
     }
 
+    public function outputs()
+    {
+        return $this->hasMany(PenelitianOutput::class, 'penelitian_id', 'id');
+    }
+
 
 
     /** LEGACY CODE */

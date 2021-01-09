@@ -28,11 +28,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('penelitians/ckmedia', 'PenelitianController@storeCKEditorImages')->name('penelitians.storeCKEditorImages');
     Route::resource('penelitians', 'PenelitianController');
 
+    //Monitoring
     Route::get('proposal-monitor/rekap-dosen', 'ProposalMonitoringController@dosen_index')->name('proposal-monitor.dosen-index');
     Route::post('proposal-monitor/rekap-dosen', 'ProposalMonitoringController@dosen_filter')->name('propsosal-monitor.dosen-filter');
 
     Route::get('monitoring-reviews/index', 'MonitoringReviewController@progress')->name('monitoring-reviews.progress');
     Route::post('monitoring-reviews/index', 'MonitoringReviewController@post_progress')->name('monitoring-reviews.post_progress');
+
+    Route::post('monitoring-luaran/export', 'MonitoringLuaranController@export')->name('monitoring-luaran.export');
+    Route::resource('monitoring-luaran', 'MonitoringLuaranController');
 
     // Pengabdians
     Route::post('pengabdians/filter', 'PengabdianController@filter')->name('pengabdians.filter');
