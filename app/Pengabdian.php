@@ -58,6 +58,11 @@ class Pengabdian extends Model
             ->where('jabatan', 2);
     }
 
+    public function outputs()
+    {
+	return $this->hasmany(PengabdianOutput::class, 'pengabdian_id', 'id');
+    }
+
     /** LEGACY CODE */
 
     public function anggotas()
