@@ -28,6 +28,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('penelitians/ckmedia', 'PenelitianController@storeCKEditorImages')->name('penelitians.storeCKEditorImages');
     Route::resource('penelitians', 'PenelitianController');
 
+    //Hasil Seleksi
+    Route::post('proposal-seleksi/reject/{id}', 'ProposalSeleksiController@reject')->name('proposal-seleksi.reject');
+    Route::post('proposal-seleksi/accept/{id}', 'ProposalSeleksiController@accept')->name('proposal-seleksi.accept');
+    Route::resource('proposal-seleksi', 'ProposalSeleksiController');
+
     //Monitoring
     Route::get('proposal-monitor/rekap-dosen', 'ProposalMonitoringController@dosen_index')->name('proposal-monitor.dosen-index');
     Route::post('proposal-monitor/rekap-dosen', 'ProposalMonitoringController@dosen_filter')->name('propsosal-monitor.dosen-filter');
