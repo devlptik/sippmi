@@ -23,34 +23,32 @@
                 </h5>
             </td>
             <td>
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ html()->form('POST', route('admin.proposal-seleksi.accept',[ $result->id]))->open() }}
+                {{ html()->form('POST', route('admin.proposal-seleksi.accept',[ $result->id]))->open() }}
 
-                        {{ html()->hidden('tahun', $tahun)->id('tahun') }}
+                {{ html()->hidden('tahun', $tahun)->id('tahun') }}
 
-                        {{ html()->hidden('skema_id', $skema_id)->id('skema_id') }}
+                {{ html()->hidden('skema_id', $skema_id)->id('skema_id') }}
 
-                        {{ html()->hidden('usulan_id', $result->id) }}
+                {{ html()->hidden('usulan_id', $result->id) }}
 
-                        {{ html()->submit('Terima')->class('btn btn-success ml-sm-2 pull-left') }}
+                <button type="submit" class="block btn btn-success ml-sm-2">
+                    <i class="cil-check-circle"></i>
+                </button>
 
-                        {{ html()->form()->close() }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ html()->form('POST', route('admin.proposal-seleksi.reject', [$result->id]))->open() }}
+                {{ html()->form()->close() }}
+                {{ html()->form('POST', route('admin.proposal-seleksi.reject', [$result->id]))->open() }}
 
-                        {{ html()->hidden('tahun', $tahun)->id('tahun') }}
+                {{ html()->hidden('tahun', $tahun)->id('tahun') }}
 
-                        {{ html()->hidden('skema_id', $skema_id)->id('skema_id') }}
+                {{ html()->hidden('skema_id', $skema_id)->id('skema_id') }}
 
-                        {{ html()->hidden('usulan_id', $result->id) }}
+                {{ html()->hidden('usulan_id', $result->id) }}
 
-                        {{ html()->submit('Tolak')->class('btn btn-danger ml-sm-2 pull-right') }}
+                <button type="submit" class="block btn btn-danger ml-sm-2">
+                    <i class="cil-x-circle"></i>
+                </button>
 
-                        {{ html()->form()->close() }}
-                    </div>
-                </div>
+                {{ html()->form()->close() }}
             </td>
         </tr>
     @endforeach

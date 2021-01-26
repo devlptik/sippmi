@@ -203,6 +203,14 @@ class Penelitian extends Model
         return $this->usulan->pengusul_id;
     }
 
+    public function isDecided()
+    {
+        return in_array(optional($this->usulan)->status_usulan, [
+            Usulan::STATUS_ACCEPTED,
+            Usulan::STATUS_REJECTED
+        ]);
+    }
+
     public function getStatusTextAttribute($value)
     {
         $status = 'DRAFT';

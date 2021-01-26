@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     //Hasil Seleksi
     Route::post('proposal-seleksi/reject/{id}', 'ProposalSeleksiController@reject')->name('proposal-seleksi.reject');
     Route::post('proposal-seleksi/accept/{id}', 'ProposalSeleksiController@accept')->name('proposal-seleksi.accept');
+    Route::get('proposal-seleksi/search/{tahun}/{skema_id}', 'ProposalSeleksiController@search')->name('proposal-seleksi.search');
     Route::resource('proposal-seleksi', 'ProposalSeleksiController');
 
     //Monitoring

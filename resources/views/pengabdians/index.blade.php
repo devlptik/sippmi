@@ -29,7 +29,7 @@
                             {{ trans('cruds.pengabdian.fields.judul') }}
                             <br>
                             {{ trans('cruds.pengabdian.fields.skema') }}
-                        </th >
+                        </th>
                         <th class="text-center">
                             {{ trans('cruds.pengabdian.fields.biaya') }}
                             <br>
@@ -54,7 +54,8 @@
                     </thead>
                     <tbody>
                     @forelse($pengabdians as $key => $pengabdian)
-                        <tr data-entry-id="{{ $pengabdian->id }}" @if($pengabdian->hasKomentar())class="bg-warning" @endif>
+                        <tr data-entry-id="{{ $pengabdian->id }}"
+                            @if($pengabdian->hasKomentar())class="bg-warning" @endif>
                             <td>
                                 {!! $pengabdian->judulSimple ?? '' !!}
                                 <br>
@@ -98,9 +99,11 @@
                             </td>
                             <td class="text-center">
                                 {!! cui()->btn_view(route('pengabdians.show', $pengabdian->id)) !!}
-                                @if($pengabdian->owner == auth()->user()->id)
-                                    {!! cui()->btn_edit(route('pengabdians.edit', $pengabdian->id)) !!}
-                                    {!! cui()->btn_delete(route('pengabdians.destroy', $pengabdian->id), trans('global.areYouSure')) !!}
+                                @if(!$pengabdian->isDecided())
+                                    @if($pengabdian->owner == auth()->user()->id)
+                                        {!! cui()->btn_edit(route('pengabdians.edit', $pengabdian->id)) !!}
+                                        {!! cui()->btn_delete(route('pengabdians.destroy', $pengabdian->id), trans('global.areYouSure')) !!}
+                                    @endif
                                 @endif
                             </td>
 

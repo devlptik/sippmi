@@ -19,6 +19,13 @@ class Usulan extends Model
         'deleted_at',
     ];
 
+    const STATUS_DRAFT = 0;
+    const STATUS_SUBMITTED = 1;
+    const STATUS_REVIEWING = 2;
+    const STATUS_ACCEPTED = 3;
+    const STATUS_REJECTED = 4;
+    const STATUS_PENDING = 5;
+
     const PENELITIAN = 'P';
     const PENGABDIAN = 'PkM';
     const PEMAKALAH = 'K';

@@ -29,7 +29,7 @@
                             {{ trans('cruds.penelitian.fields.judul') }}
                             <br>
                             {{ trans('cruds.penelitian.fields.skema') }}
-                        </th >
+                        </th>
                         <th class="text-center">
                             {{ trans('cruds.penelitian.fields.biaya') }}
                             <br>
@@ -54,7 +54,8 @@
                     </thead>
                     <tbody>
                     @forelse($penelitians as $key => $penelitian)
-                        <tr data-entry-id="{{ $penelitian->id }}" @if($penelitian->hasKomentar())class="bg-warning" @endif>
+                        <tr data-entry-id="{{ $penelitian->id }}"
+                            @if($penelitian->hasKomentar())class="bg-warning" @endif>
                             <td>
                                 {!! $penelitian->judulSimple ?? '' !!}
                                 <br>
@@ -97,9 +98,11 @@
                             </td>
                             <td class="text-center">
                                 {!! cui()->btn_view(route('penelitians.show', $penelitian->id)) !!}
-                                @if($penelitian->owner == auth()->user()->id)
-                                    {!! cui()->btn_edit(route('penelitians.edit', $penelitian->id)) !!}
-                                    {!! cui()->btn_delete(route('penelitians.destroy', $penelitian->id), trans('global.areYouSure')) !!}
+                                @if(!$penelitian->isDecided())
+                                    @if($penelitian->owner == auth()->user()->id)
+                                        {!! cui()->btn_edit(route('penelitians.edit', $penelitian->id)) !!}
+                                        {!! cui()->btn_delete(route('penelitians.destroy', $penelitian->id), trans('global.areYouSure')) !!}
+                                    @endif
                                 @endif
                             </td>
 

@@ -166,7 +166,6 @@ class PenelitianController extends Controller
             })
             ->where('penelitians.id', $penelitian->id)
             ->get();
-
         return view('penelitians.show', compact('penelitian', 'outputs'));
     }
 

@@ -79,7 +79,9 @@
                 </div>
 
                 <div class="card-body">
-                    @include('pengabdians.outputs._index')
+                    @if($outputs->count() > 1)
+                        @include('pengabdians.outputs._index')
+                    @endif
                 </div>
             </div>
         </div>

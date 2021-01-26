@@ -78,7 +78,9 @@
                 </div>
 
                 <div class="card-body">
-                    @include('penelitians.outputs._index')
+                    @if($outputs->count() > 1)
+                        @include('penelitians.outputs._index')
+                    @endif
                 </div>
             </div>
 

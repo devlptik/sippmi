@@ -51,6 +51,9 @@ class MonitoringLuaranController extends Controller
                 $results = Penelitian::with('outputs')
                     ->where('tahun', $request->tahun)
                     ->where('skema_id', $request->skema_id)
+                    ->whereHas('usulan', function ($query){
+                        $query->where('status_usulan', Usulan::STATUS_ACCEPTED);
+                    })
                     ->get();
                 break;
             case Usulan::PENGABDIAN:
@@ -60,6 +63,9 @@ class MonitoringLuaranController extends Controller
                 $results = Pengabdian::with('outputs')
                     ->where('tahun', $request->tahun)
                     ->where('skema_id', $request->skema_id)
+                    ->whereHas('usulan', function ($query){
+                        $query->where('status_usulan', Usulan::STATUS_ACCEPTED);
+                    })
                     ->get();
                 break;
         }
@@ -95,6 +101,9 @@ class MonitoringLuaranController extends Controller
                 $results = Penelitian::with('outputs')
                     ->where('tahun', $request->tahun)
                     ->where('skema_id', $request->skema_id)
+                    ->whereHas('usulan', function ($query){
+                        $query->where('status_usulan', Usulan::STATUS_ACCEPTED);
+                    })
                     ->get();
                 break;
             case Usulan::PENGABDIAN:
@@ -104,6 +113,9 @@ class MonitoringLuaranController extends Controller
                 $results = Pengabdian::with('outputs')
                     ->where('tahun', $request->tahun)
                     ->where('skema_id', $request->skema_id)
+                    ->whereHas('usulan', function ($query){
+                        $query->where('status_usulan', Usulan::STATUS_ACCEPTED);
+                    })
                     ->get();
                 break;
         }
