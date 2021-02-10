@@ -23,7 +23,7 @@ class PenelitianExport implements FromView
     {
         $penelitians = Penelitian::where('tahun', $this->tahun);
         if (!empty($this->skema)) {
-            $penelitians = Penelitian::where('skema_id', $this->skema);
+            $penelitians = $penelitians->where('skema_id', $this->skema);
         }
         $penelitians = $penelitians->get();
         $no = 1;

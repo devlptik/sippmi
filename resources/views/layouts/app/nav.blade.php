@@ -141,6 +141,25 @@
                     @endcan
                 </ul>
             </li>
+
+
+        <li class="c-sidebar-nav-dropdown">
+            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                <span class="c-sidebar-nav-icon">
+                    <i class="cil-school"></i>
+                </span>
+                Seleksi Proposal
+            </a>
+            <ul class="c-sidebar-nav-dropdown-items">
+                <li class="c-sidebar-nav-item">
+                    <a href="{{ route("admin.proposal-seleksi.index") }}"
+                       class="c-sidebar-nav-link {{ request()->is('admin/proposal-seleksi/index') || request()->is('admin/proposal-seleksi/*') ? 'active' : '' }}"
+                    >
+                        Hasil Seleksi
+                    </a>
+                </li>
+            </ul>
+        </li>
         @endcan
 
         @can('kinerja_view')
@@ -163,23 +182,6 @@
             </li>
         @endcan
 
-        <li class="c-sidebar-nav-dropdown">
-            <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                <span class="c-sidebar-nav-icon">
-                    <i class="cil-school"></i>
-                </span>
-                Seleksi Proposal
-            </a>
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <a href="{{ route("admin.proposal-seleksi.index") }}"
-                       class="c-sidebar-nav-link {{ request()->is('admin/proposal-seleksi/index') || request()->is('admin/proposal-seleksi/*') ? 'active' : '' }}"
-                    >
-                        Hasil Seleksi
-                    </a>
-                </li>
-            </ul>
-        </li>
 
         @can('monitoring')
             <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
