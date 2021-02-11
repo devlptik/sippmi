@@ -21,33 +21,56 @@ class PlottingReviewerController extends Controller
     public function index()
     {
         abort_if(Gate::denies('plotting_reviewer_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $tahapanRiview = TahapanReview::where('tahun', Carbon::now()->year)
             ->pluck('nama', 'id');
+
         $skemas = RefSkema::all()
             ->pluck('nama', 'id');
 
-        $tahapans = TahapanReview::all();
-        $penelitian = Penelitian::with(['usulanAnggotumWithPenelitianId' => function ($query) {
-            $query->where('jabatan', 1);
-        }])->select('id as penelitian_id', 'judul')->get();
-
-        $penelitian = $penelitian->each(function ($p) {
-            $p->peneliti = $p->usulanAnggotumWithPenelitianId[0]->dosen->nama;
-        });
+//        $tahapans = TahapanReview::all();
+//        $penelitian = Penelitian::with(['usulanAnggotumWithPenelitianId' => function ($query) {
+//            $query->where('jabatan', 1);
+//        }])->select('id as penelitian_id', 'judul')->get();
+//
+//        $penelitian = $penelitian->each(function ($p) {
+//            $p->peneliti = $p->usulanAnggotumWithPenelitianId[0]->dosen->nama;
+//        });
 
         $skema = null;
 
-        $tahapans = $tahapans->crossJoin($penelitian)->map(function ($item, $key) {
-            $tahapan = $item[0]->toArray();
-            $penelitian = $item[1]->toArray();
-            $tahapanPenelitian = collect($tahapan)->mergeRecursive($penelitian);
-            return $tahapanPenelitian;
-        });
+//        $tahapans = $tahapans->crossJoin($penelitian)->map(function ($item, $key) {
+//            $tahapan = $item[0]->toArray();
+//            $penelitian = $item[1]->toArray();
+//            $tahapanPenelitian = collect($tahapan)->mergeRecursive($penelitian);
+//            return $tahapanPenelitian;
+//        });
 
-        $plottedReviewer = PenelitianReviewer::all();
-        $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
+        $tahun = date('Y');
+        $tahuns = Penelitian::select('tahun')->distinct()->get()->pluck('tahun');
 
-        return view('admins.reviews.plottings.index', compact('tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'skema'));
+//        $plottedReviewer = PenelitianReviewer::all();
+//        $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
+
+        return view('admins.reviews.plottings.index_2', compact(
+            'tahuns',
+            'tahun',
+            'tahapanRiview',
+            'skemas',
+//            'tahapans',
+//            'plottedReviewer',
+//            'jumlahReviewerMax',
+            'skema'));
+
+//        return view('admins.reviews.plottings.index', compact(
+//            'tahuns',
+//            'tahun',
+//            'tahapanRiview',
+//            'skemas',
+//            'tahapans',
+//            'plottedReviewer',
+//            'jumlahReviewerMax',
+//            'skema'));
     }
 
     public function filter(Request $request)
@@ -59,10 +82,12 @@ class PlottingReviewerController extends Controller
             ->pluck('nama', 'id');
 
         $skema = RefSkema::findOrFail($request->skema);
+        $tahun = $request->get('tahun');
+        $tahuns = Penelitian::select('tahun')->distinct()->get()->pluck('tahun');
 
         $tahapans = TahapanReview::where('id', $request->tahapan)->get();
         if ($skema->jenis_usulan == Usulan::PENELITIAN) {
-            $penelitian = Penelitian::with(['usulanAnggotumWithPenelitianId' => function ($query) {
+            $penelitian = Penelitian::where('tahun', $tahun)->with(['usulanAnggotumWithPenelitianId' => function ($query) {
                 $query->where('jabatan', 1);
             }])->select('id as penelitian_id', 'judul', 'skema_id')->get()->filter(function ($value) use ($request) {
                 return $value->skema_id == $request->skema;
@@ -84,9 +109,9 @@ class PlottingReviewerController extends Controller
             $plottedReviewer = PenelitianReviewer::all();
             $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
 
-            return view('admins.reviews.plottings.index', compact('tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
+            return view('admins.reviews.plottings.index', compact('tahuns', 'tahun', 'tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
         } else if ($skema->jenis_usulan == Usulan::PENGABDIAN) {
-            $penelitian = Pengabdian::with(['usulanAnggotumWithPengabdianId' => function ($query) {
+            $penelitian = Pengabdian::where('tahun', $tahun)->with(['usulanAnggotumWithPengabdianId' => function ($query) {
                 $query->where('jabatan', 1);
             }])->select('id as pengabdian_id', 'judul', 'skema_id')->get()->filter(function ($value) use ($request) {
                 return $value->skema_id == $request->skema;
@@ -109,7 +134,7 @@ class PlottingReviewerController extends Controller
             $plottedReviewer = PenelitianReviewer::all();
             $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
 
-            return view('admins.reviews.plottings.index_pengabdian', compact('tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
+            return view('admins.reviews.plottings.index_pengabdian', compact('tahuns', 'tahun', 'tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
         }
 
     }

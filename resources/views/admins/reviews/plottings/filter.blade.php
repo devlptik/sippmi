@@ -1,5 +1,26 @@
 <form method="POST" action="{{ route("admin.plotting-reviewers.filter") }}" class="mt-3">
     @csrf
+
+    <div class="form-group row">
+        <label for="tahapan" class="required font-weight-bold col-sm-2">Tahun</label>
+        <div class="col-sm-10">
+            <select class="form-control mr-sm-2 {{ $errors->has('tahuns') ? 'is-invalid' : '' }}" name="tahun"
+                    id="tahun" required>
+                <option value
+                        disabled {{ old('tahun', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                @foreach($tahuns as $tahun)
+                    <option
+                        value="{{ $tahun }}" {{ old('tahun', $tahun ?? '') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
+                @endforeach
+            </select>
+            @if($errors->has('tahun'))
+                <div class="invalid-feedback">
+                    {{ $errors->first('tahun') }}
+                </div>
+            @endif
+        </div>
+    </div>
+
     <div class="form-group row">
         <label for="tahapan" class="required font-weight-bold col-sm-2">{{ trans('cruds.tahapanReview.title') }}</label>
         <div class="col-sm-10">

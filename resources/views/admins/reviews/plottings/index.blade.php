@@ -48,6 +48,9 @@
                                     <th>
                                         Judul Penelitian
                                     </th>
+                                    <th>
+                                        Tahun
+                                    </th>
                                     @for($i=0;$i<$jumlahReviewerMax;$i++)
                                         <th>
                                             Reviewer {!! $i+1 !!}
@@ -66,6 +69,9 @@
                                         </td>
                                         <td>
                                             {!! $tahapan['judul'] !!}
+                                        </td>
+                                        <td>
+                                            {{ $tahapan['tahun'] }}
                                         </td>
                                         @for($i=0;$i<$jumlahReviewerMax;$i++)
                                             @php($plotted = true)
