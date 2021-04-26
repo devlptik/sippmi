@@ -8,7 +8,7 @@
 @endsection
 
 @section('toolbar')
-
+    {!! cui_toolbar_btn(route('admin.penelitians.create'), 'icon-plus', 'Tambah Penelitian') !!}
 @endsection
 
 @section('content')
@@ -184,7 +184,7 @@
     <script>
         $(function () {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-                @can('penelitian_manage')
+            @can('penelitian_manage')
             let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
             let deleteButton = {
                 text: deleteButtonTrans,

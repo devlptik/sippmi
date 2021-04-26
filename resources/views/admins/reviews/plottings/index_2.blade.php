@@ -21,7 +21,7 @@
                     <div class="card-body">
 
                         @include('admins.reviews.plottings.filter')
-                        
+
                     </div>
                 </div>
 

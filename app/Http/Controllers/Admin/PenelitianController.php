@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Dosen;
 use App\Exports\PenelitianExport;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
@@ -85,48 +86,29 @@ class PenelitianController extends Controller
     {
         abort_if(Gate::denies('penelitian_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $skemas = RefSkema::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $dosens = Dosen::all()->pluck('nama', 'id');
 
-        $kode_rumpuns = KodeRumpun::all()->pluck('rumpun_ilmu', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $skemas = RefSkema::where('jenis_usulan', Usulan::PENELITIAN)
+            ->whereAvailable()
+            ->get()
+            ->pluck('nama', 'id');
 
-        $prodis = Prodi::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $prnFokus = PrnFokus::pluck('nama', 'id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
-        $tahapans = RipTahapan::all()->pluck('tahun', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $kode_rumpuns = KodeRumpun::where('level', 3)
+            ->get()
+            ->pluck('rumpun_ilmu', 'id');
 
-        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'tahapans'));
+        $prodis = Prodi::all()
+            ->pluck('fakultas_prodi', 'id');
+
+        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens'));
     }
 
-    public function store(StorePenelitianRequest $request)
+    public function store(Request $request)
     {
-        $penelitian = Penelitian::create($request->all());
 
-        if ($request->input('file_proposal', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_proposal')))->toMediaCollection('file_proposal');
-        }
-
-        if ($request->input('file_laporan_kemajuan', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_laporan_kemajuan')))->toMediaCollection('file_laporan_kemajuan');
-        }
-
-        if ($request->input('file_laporan_keuangan', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_laporan_keuangan')))->toMediaCollection('file_laporan_keuangan');
-        }
-
-        if ($request->input('file_profil_penelitian', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_profil_penelitian')))->toMediaCollection('file_profil_penelitian');
-        }
-
-        if ($request->input('file_laporan_akhir', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_laporan_akhir')))->toMediaCollection('file_laporan_akhir');
-        }
-
-        if ($request->input('file_logbook', false)) {
-            $penelitian->addMedia(storage_path('tmp/uploads/' . $request->input('file_logbook')))->toMediaCollection('file_logbook');
-        }
-
-        if ($media = $request->input('ck-media', false)) {
-            Media::whereIn('id', $media)->update(['model_id' => $penelitian->id]);
-        }
 
         return redirect()->route('admin.penelitians.index');
     }
@@ -143,7 +125,7 @@ class PenelitianController extends Controller
 
         $tahapans = RipTahapan::all()->pluck('tahun', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $prnFokus = PrnFokus::pluck('nama','id')->prepend(trans('global.pleaseSelect'), '');
+        $prnFokus = PrnFokus::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $penelitian->load('skema', 'kode_rumpun', 'prodi', 'tahapan');
 

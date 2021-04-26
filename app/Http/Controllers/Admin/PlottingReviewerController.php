@@ -87,11 +87,14 @@ class PlottingReviewerController extends Controller
 
         $tahapans = TahapanReview::where('id', $request->tahapan)->get();
         if ($skema->jenis_usulan == Usulan::PENELITIAN) {
-            $penelitian = Penelitian::where('tahun', $tahun)->with(['usulanAnggotumWithPenelitianId' => function ($query) {
-                $query->where('jabatan', 1);
-            }])->select('id as penelitian_id', 'judul', 'skema_id')->get()->filter(function ($value) use ($request) {
-                return $value->skema_id == $request->skema;
-            });
+            $penelitian = Penelitian::where('tahun', $tahun)
+                ->where('skema_id', $skema->id)
+                ->with(['usulanAnggotumWithPenelitianId' => function ($query) {
+                    $query->where('jabatan', 1);
+                }])->select('id as penelitian_id', 'judul', 'skema_id', 'tahun')->get();
+//            ->filter(function ($value) use ($request) {
+//                return $value->skema_id == $request->skema;
+//            });
 
             $penelitian = $penelitian->each(function ($p) {
                 $p->peneliti = $p->usulanAnggotumWithPenelitianId[0]->dosen->nama;
@@ -103,10 +106,11 @@ class PlottingReviewerController extends Controller
                 $tahapanPenelitian = collect($tahapan)->mergeRecursive($penelitian);
                 return $tahapanPenelitian;
             });
+
             $tahapan_id = $request->tahapan;
             $skema_id = $request->skema;
 
-            $plottedReviewer = PenelitianReviewer::all();
+            $plottedReviewer = PenelitianReviewer::whereIn('usulan_id', $tahapans->pluck('id'))->get();
             $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
 
             return view('admins.reviews.plottings.index', compact('tahuns', 'tahun', 'tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
