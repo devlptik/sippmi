@@ -26,9 +26,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('penelitians/destroy', 'PenelitianController@massDestroy')->name('penelitians.massDestroy');
     Route::post('penelitians/media', 'PenelitianController@storeMedia')->name('penelitians.storeMedia');
     Route::post('penelitians/ckmedia', 'PenelitianController@storeCKEditorImages')->name('penelitians.storeCKEditorImages');
-    Route::resource('penelitians', 'PenelitianController');
 
-    Route::resource('penelitian-anggota', 'PenelitianAnggotaController')->only(['store', 'destroy']);
+    Route::resource('penelitians', 'PenelitianController');
+    Route::resource('penelitian.anggota', 'PenelitianAnggotaController')->only(['create', 'store', 'destroy']);
+    Route::post('penelition/{penelitian}/anggotamhs', 'PenelitianAnggotanController@storem')->name('penelitian.anggota.storemahasiswa');
 
     //Hasil Seleksi
     Route::post('proposal-seleksi/reject/{id}', 'ProposalSeleksiController@reject')->name('proposal-seleksi.reject');

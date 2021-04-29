@@ -149,3 +149,52 @@
     @endif
 </div>
 
+<div class="form-group">
+    <label>Status Usulan</label>
+    {{ html()->select('status_usulan', $status_usulans, ($usulan ? $usulan->status_usulan : "") )->id('status_usulan')->class(['form-control', 'is-invalid' => $errors->has('status_usulan')])  }}
+    @if($errors->has('status_usulan'))
+        <div class="invalid-feedback">
+            {{ $errors->first('status_usulan') }}
+        </div>
+    @endif
+</div>
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            var quill = new Quill('#editor_judul', {
+                theme: 'snow',   // Specify theme in configuration
+                modules: {
+                    toolbar: ['bold', 'italic', 'underline']
+                }
+            });
+
+            var editor = document.getElementById('editor_judul').getElementsByClassName('ql-editor')[0];
+            var inputJudul = document.getElementById("judul");
+            var text = "";
+
+            quill.on('text-change', function () {
+                text = editor.innerHTML;
+                // console.log(text);
+                inputJudul.value = text;
+            })
+
+            var quill_eksekutif = new Quill('#editor_eksekutif', {
+                theme: 'snow',   // Specify theme in configuration
+                modules: {
+                    toolbar: ['bold', 'italic', 'underline']
+                }
+            });
+
+            var editor_eksekutif = document.getElementById('editor_eksekutif').getElementsByClassName('ql-editor')
+            var input_eksekutif = document.getElementById('ringkasan_eksekutif')
+            var text_eksekutif = "";
+
+            quill_eksekutif.on('text-change', function (){
+                text_eksekutif = editor_eksekutif.innerHTML;
+                input_eksekutif.value = text_eksekutif;
+            })
+        });
+    </script>
+@endsection

@@ -11,12 +11,15 @@ use App\Http\Requests\StorePenelitianRequest;
 use App\Http\Requests\UpdatePenelitianRequest;
 use App\KodeRumpun;
 use App\Penelitian;
+use App\PenelitianAnggotum;
 use App\PrnFokus;
 use App\Prodi;
 use App\RefSkema;
 use App\RipTahapan;
 use App\Usulan;
+use App\UsulanAnggotum;
 use Gate;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\MediaLibrary\Models\Media;
@@ -89,7 +92,7 @@ class PenelitianController extends Controller
         $dosens = Dosen::all()->pluck('nama', 'id');
 
         $skemas = RefSkema::where('jenis_usulan', Usulan::PENELITIAN)
-            ->whereAvailable()
+//            ->whereAvailable()
             ->get()
             ->pluck('nama', 'id');
 
@@ -103,33 +106,80 @@ class PenelitianController extends Controller
         $prodis = Prodi::all()
             ->pluck('fakultas_prodi', 'id');
 
-        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens'));
+        $status_usulans = Usulan::STATUS_USULAN;
+        $usulan = null;
+
+        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan'));
     }
 
     public function store(Request $request)
     {
 
+        abort_if(Gate::denies('penelitian_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return redirect()->route('admin.penelitians.index');
+        $usulan = new Usulan();
+        $usulan->pengusul_id = $request->get('pengusul_id');
+        $usulan->status_usulan = $request->get('status_usulan');
+        $usulan->jenis_usulan = 'P';
+        $usulan->save();
+
+        $penelitian = new Penelitian();
+        $penelitian->id = $usulan->id;
+        $penelitian->kode_rumpun_id = null;
+        $penelitian->prodi_id = $request->get('prodi_id');
+        $penelitian->judul = $request->get('judul');
+        $penelitian->skema_id = $request->get('skema_id');
+        $penelitian->tahapan_id = null;
+        $penelitian->fokus_id = $request->get('fokus_id');
+        $penelitian->ringkasan_eksekutif = $request->get('ringkasan_eksekutif');
+        $penelitian->biaya = $request->get('biaya');
+        $penelitian->status_penelitian = null;
+        $penelitian->multi_tahun = $request->get('multi_tahun');
+        $penelitian->tahun = date('Y');
+        $penelitian->save();
+
+        $this->addFile($penelitian, $request, 'file_pengesahan', config('sippmi.path.pengesahan'));
+        $this->addFile($penelitian, $request, 'file_proposal', config('sippmi.path.proposal'));
+        $this->addFile($penelitian, $request, 'file_cv', config('sippmi.path.cv'));
+
+        $anggota = new UsulanAnggotum();
+        $anggota->tipe = PenelitianAnggotum::DOSEN;
+        $anggota->usulan_id = $usulan->id;
+        $anggota->dosen_id = $request->get('pengusul_id');
+        $anggota->jabatan = PenelitianAnggotum::KETUA;
+        $anggota->save();
+
+        return redirect()->route('admin.penelitian.anggota.create', [$penelitian->id]);
     }
 
     public function edit(Penelitian $penelitian)
     {
         abort_if(Gate::denies('penelitian_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $skemas = RefSkema::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $usulan = Usulan::findOrFail($penelitian->id);
 
-        $kode_rumpuns = KodeRumpun::all()->pluck('rumpun_ilmu', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $dosens = Dosen::all()->pluck('nama', 'id');
 
-        $prodis = Prodi::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $skemas = RefSkema::where('jenis_usulan', Usulan::PENELITIAN)
+//            ->whereAvailable()
+            ->get()
+            ->pluck('nama', 'id');
 
-        $tahapans = RipTahapan::all()->pluck('tahun', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $prnFokus = PrnFokus::pluck('nama', 'id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
-        $prnFokus = PrnFokus::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $kode_rumpuns = KodeRumpun::where('level', 3)
+            ->get()
+            ->pluck('rumpun_ilmu', 'id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
-        $penelitian->load('skema', 'kode_rumpun', 'prodi', 'tahapan');
+        $prodis = Prodi::all()
+            ->pluck('fakultas_prodi', 'id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.penelitians.edit', compact('skemas', 'kode_rumpuns', 'prodis', 'tahapans', 'penelitian', 'prnFokus'));
+        $status_usulans = Usulan::STATUS_USULAN;
+
+        return view('admin.penelitians.edit', compact('penelitian', 'skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan'));
     }
 
     public function update(UpdatePenelitianRequest $request, Penelitian $penelitian)
@@ -140,7 +190,7 @@ class PenelitianController extends Controller
         $this->addFile($penelitian, $request, 'file_proposal', config('sippmi.path.proposal'));
         $this->addFile($penelitian, $request, 'file_cv', config('sippmi.path.cv'));
 
-        return redirect()->route('admin.penelitians.index');
+        return redirect()->route('admin.penelitian.anggota.create', [$penelitian->id]);
     }
 
     public function show(Penelitian $penelitian)

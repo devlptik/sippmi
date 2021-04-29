@@ -37,45 +37,4 @@
         </form>
     </div>
 
-
-
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            var quill = new Quill('#editor_judul', {
-                theme: 'snow',   // Specify theme in configuration
-                modules: {
-                    toolbar: ['bold', 'italic', 'underline']
-                }
-            });
-
-            var editor = document.getElementById('editor_judul').getElementsByClassName('ql-editor')[0];
-            var inputJudul = document.getElementById("judul");
-            var text = "";
-
-            quill.on('text-change', function () {
-                text = editor.innerHTML;
-                // console.log(text);
-                inputJudul.value = text;
-            })
-
-            var quill_eksekutif = new Quill('#editor_eksekutif', {
-                theme: 'snow',   // Specify theme in configuration
-                modules: {
-                    toolbar: ['bold', 'italic', 'underline']
-                }
-            });
-
-            var editor_eksekutif = document.getElementById('editor_eksekutif').getElementsByClassName('ql-editor')
-            var input_eksekutif = document.getElementById('ringkasan_eksekutif')
-            var text_eksekutif = "";
-
-            quill_eksekutif.on('text-change', function (){
-                text_eksekutif = editor_eksekutif.innerHTML;
-                input_eksekutif.value = text_eksekutif;
-            })
-        });
-    </script>
 @endsection

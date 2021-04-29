@@ -9,81 +9,66 @@ use App\Http\Requests\StorePenelitianAnggotumRequest;
 use App\Http\Requests\UpdatePenelitianAnggotumRequest;
 use App\Penelitian;
 use App\PenelitianAnggotum;
+use App\Prodi;
+use App\RefSkema;
+use App\UsulanAnggotum;
 use Gate;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class PenelitianAnggotaController extends Controller
 {
-    public function index()
+
+
+    public function create(Penelitian $penelitian)
     {
-        abort_if(Gate::denies('penelitian_anggotum_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $anggotas = $penelitian->usulan->anggotas()->tipe(1)->pluck('dosen_id', 'dosen_id')->toArray();
+        $dosens = Dosen::whereNotIn('id',$anggotas)
+            ->get()
+            ->pluck('nama_nidn', 'id');
+        $prodis = Prodi::pluck('nama','nama');
 
-        $penelitianAnggota = PenelitianAnggotum::all();
-
-        return view('admin.penelitianAnggota.index', compact('penelitianAnggota'));
+        return view('admin.penelitians.anggota.create ', compact('penelitian', 'dosens','prodis'));
     }
 
-    public function create()
+    public function store(Request $request,  Penelitian $penelitian)
     {
-        abort_if(Gate::denies('penelitian_anggotum_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->validate($request, UsulanAnggotum::$dosen_validation_rule);
 
-        $dosens = Dosen::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $anggota = new UsulanAnggotum();
+        $anggota->tipe = 1;
+        $anggota->usulan_id = $penelitian->id;
+        $anggota->dosen_id = $request->get('dosen_id');
+        $anggota->jabatan = 2;
+        $anggota->save();
 
-        $penelitians = Penelitian::all()->pluck('judul', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.penelitianAnggota.create', compact('dosens', 'penelitians'));
+        return redirect()->route('admin.penelitian.anggota.create', [$penelitian]);
     }
 
-    public function store(StorePenelitianAnggotumRequest $request)
+    public function storem(Request $request, Penelitian $penelitian)
     {
-        $penelitianAnggotum = PenelitianAnggotum::create($request->all());
+        $this->validate($request, UsulanAnggotum::$mahasiswa_validation_rule);
 
-        return redirect()->route('admin.penelitian-anggota.index');
+        $anggota = new UsulanAnggotum();
+        $anggota->tipe = 2;
+        $anggota->nama = $request->nama;
+        $anggota->usulan_id = $penelitian->id;
+        $anggota->identifier = $request->identifier;
+        $anggota->unit = $request->unit;
+        $anggota->jabatan = 2;
+        $anggota->save();
+
+        return redirect()->back();
     }
 
-    public function edit(PenelitianAnggotum $penelitianAnggotum)
+    public function destroy(Request $request, Penelitian $penelitian, UsulanAnggotum $anggotum)
     {
-        abort_if(Gate::denies('penelitian_anggotum_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $dosens = Dosen::all()->pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $penelitians = Penelitian::all()->pluck('judul', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $penelitianAnggotum->load('dosen', 'penelitian');
-
-        return view('admin.penelitianAnggota.edit', compact('dosens', 'penelitians', 'penelitianAnggotum'));
-    }
-
-    public function update(UpdatePenelitianAnggotumRequest $request, PenelitianAnggotum $penelitianAnggotum)
-    {
-        $penelitianAnggotum->update($request->all());
-
-        return redirect()->route('admin.penelitian-anggota.index');
-    }
-
-    public function show(PenelitianAnggotum $penelitianAnggotum)
-    {
-        abort_if(Gate::denies('penelitian_anggotum_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $penelitianAnggotum->load('dosen', 'penelitian');
-
-        return view('admin.penelitianAnggota.show', compact('penelitianAnggotum'));
-    }
-
-    public function destroy(PenelitianAnggotum $penelitianAnggotum)
-    {
-        abort_if(Gate::denies('penelitian_anggotum_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $penelitianAnggotum->delete();
-
+        abort_if(Gate::denies('penelitian_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $anggotum->delete();
         return back();
+
     }
 
-    public function massDestroy(MassDestroyPenelitianAnggotumRequest $request)
-    {
-        PenelitianAnggotum::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
-    }
 }

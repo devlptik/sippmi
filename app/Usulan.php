@@ -38,6 +38,15 @@ class Usulan extends Model
 //        self::JURNAL => 'Artikel Jurnal'
     ];
 
+    const STATUS_USULAN = [
+        self::STATUS_DRAFT => 'Draft',
+        self::STATUS_SUBMITTED => 'Submitted',
+        self::STATUS_REVIEWING => 'Reviewing',
+        self::STATUS_ACCEPTED => 'Accepted',
+        self::STATUS_REJECTED => 'Rejected',
+        self::STATUS_PENDING => 'Pending'
+    ];
+
     protected $fillable = [
         'created_at',
         'updated_at',
