@@ -26,6 +26,17 @@
 </div>
 
 <div class="form-group">
+    <label for="tahun">Tahun Pengusulan</label>
+    {{ html()->select('tahun', $tahuns)->id('tahun')->class(['form-control', 'is-invalid' => $errors->has('tahun')]) }}
+
+    @if($errors->has('tahun'))
+        <div class="invalid-feedback">
+            {{ $errors->first('tahun') }}
+        </div>
+    @endif
+</div>
+
+<div class="form-group">
     <label for="pengusul_id">Dosen Pengusul</label>
     {{ html()->select('pengusul_id', $dosens)->id('pengusul_id')->class(['form-control', 'select2', 'is-invalid' => $errors->has('pengusul_id')]) }}
 

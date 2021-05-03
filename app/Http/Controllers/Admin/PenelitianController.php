@@ -106,10 +106,16 @@ class PenelitianController extends Controller
         $prodis = Prodi::all()
             ->pluck('fakultas_prodi', 'id');
 
+        $tahun = range(2015, date('Y'));
+        $tahuns = [];
+        foreach ($tahun as $k => $v){
+            $tahuns[$v] = $v;
+        }
+
         $status_usulans = Usulan::STATUS_USULAN;
         $usulan = null;
 
-        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan'));
+        return view('admin.penelitians.create', compact('skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan', 'tahuns'));
     }
 
     public function store(Request $request)
@@ -135,7 +141,7 @@ class PenelitianController extends Controller
         $penelitian->biaya = $request->get('biaya');
         $penelitian->status_penelitian = null;
         $penelitian->multi_tahun = $request->get('multi_tahun');
-        $penelitian->tahun = date('Y');
+        $penelitian->tahun = $request->get('tahun');
         $penelitian->save();
 
         $this->addFile($penelitian, $request, 'file_pengesahan', config('sippmi.path.pengesahan'));
@@ -179,7 +185,13 @@ class PenelitianController extends Controller
 
         $status_usulans = Usulan::STATUS_USULAN;
 
-        return view('admin.penelitians.edit', compact('penelitian', 'skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan'));
+        $tahun = range(2015, date('Y'));
+        $tahuns = [];
+        foreach ($tahun as $k => $v){
+            $tahuns[$v] = $v;
+        }
+
+        return view('admin.penelitians.edit', compact('penelitian', 'skemas', 'kode_rumpuns', 'prodis', 'prnFokus', 'dosens', 'status_usulans', 'usulan', 'tahuns'));
     }
 
     public function update(UpdatePenelitianRequest $request, Penelitian $penelitian)
