@@ -86,12 +86,13 @@ class PlottingReviewerController extends Controller
         $tahuns = Penelitian::select('tahun')->distinct()->get()->pluck('tahun');
 
         $tahapans = TahapanReview::where('id', $request->tahapan)->get();
+
         if ($skema->jenis_usulan == Usulan::PENELITIAN) {
             $penelitian = Penelitian::where('tahun', $tahun)
                 ->where('skema_id', $skema->id)
                 ->with(['usulanAnggotumWithPenelitianId' => function ($query) {
                     $query->where('jabatan', 1);
-                }])->select('id as penelitian_id', 'judul', 'skema_id', 'tahun')->get();
+                }])->select('id as penelitian_id', 'judul', 'skema_id')->get();
 //            ->filter(function ($value) use ($request) {
 //                return $value->skema_id == $request->skema;
 //            });
