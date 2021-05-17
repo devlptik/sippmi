@@ -111,7 +111,7 @@ class PlottingReviewerController extends Controller
             $tahapan_id = $request->tahapan;
             $skema_id = $request->skema;
 
-            $plottedReviewer = PenelitianReviewer::whereIn('usulan_id', $tahapans->pluck('id'))->get();
+            $plottedReviewer = PenelitianReviewer::whereIn('usulan_id', $tahapans->pluck('penelitian_id'))->get();
             $jumlahReviewerMax = $tahapans->pluck('jumlah_reviewer')->max();
 
             return view('admins.reviews.plottings.index', compact('tahuns', 'tahun', 'tahapanRiview', 'skemas', 'tahapans', 'plottedReviewer', 'jumlahReviewerMax', 'tahapan_id', 'skema_id', 'skema'));
