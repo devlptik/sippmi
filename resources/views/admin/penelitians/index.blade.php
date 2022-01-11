@@ -77,6 +77,9 @@
                             ( {{ trans('cruds.penelitian.fields.skema') }} )
                         </th>
                         <th class="text-center">
+                            Tahun
+                        </th>
+                        <th class="text-center">
                             {{ trans('cruds.penelitian.fields.biaya') }}
                         </th>
                         <th class="text-center">
@@ -125,6 +128,9 @@
                                 @if($penelitian->hasKomentar())
                                     <i class="cil-warning text-warning"></i>
                                 @endif
+                            </td>
+                            <td>
+                                {{ optional($penelitian)->tahun }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($penelitian->biaya,0, ',', '.').',-' ?? '' }}

@@ -31,6 +31,9 @@
                             {{ trans('cruds.pengabdian.fields.skema') }}
                         </th>
                         <th class="text-center">
+                            Tahun
+                        </th>
+                        <th class="text-center">
                             {{ trans('cruds.pengabdian.fields.biaya') }}
                             <br>
                             (Rp)
@@ -62,6 +65,9 @@
                                 <span class="text-info">
                                     <small><em>{{ $pengabdian->skema->nama ?? '' }}</em></small>
                                 </span>
+                            </td>
+                            <td class="text-center">
+                                {{ optional($pengabdian)->tahun }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($pengabdian->biaya,0, ',', '.').',-' ?? '' }}

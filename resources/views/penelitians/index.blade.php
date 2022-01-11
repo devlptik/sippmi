@@ -31,6 +31,9 @@
                             {{ trans('cruds.penelitian.fields.skema') }}
                         </th>
                         <th class="text-center">
+                            Tahun
+                        </th>
+                        <th class="text-center">
                             {{ trans('cruds.penelitian.fields.biaya') }}
                             <br>
                             (Rp)
@@ -63,8 +66,11 @@
                                     <small><em>{{ $penelitian->skema->nama ?? '' }}</em></small>
                                 </span>
                             </td>
+                            <td class="text-center">
+                                {{ optional($penelitian)->tahun }}
+                            </td>
                             <td class="text-right">
-                                {{ number_format($penelitian->biaya,0, ',', '.').',-' ?? '' }}
+                                {{ number_format($penelitian->biaya,0 , ',', '.').',-' ?? '' }}
                             </td>
                             <td class="text-center">
                                 @if(!empty($penelitian->file_proposal))

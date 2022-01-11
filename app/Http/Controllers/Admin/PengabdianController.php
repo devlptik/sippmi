@@ -139,7 +139,13 @@ class PengabdianController extends Controller
 
         $pengabdian->load('skema', 'prodi', 'kode_rumpun');
 
-        return view('admin.pengabdians.edit', compact('skemas', 'prodis', 'kode_rumpuns', 'pengabdian'));
+        $tahun = range(2015, date('Y'));
+        $tahuns = [];
+        foreach ($tahun as $k => $v){
+            $tahuns[$v] = $v;
+        }
+
+        return view('admin.pengabdians.edit', compact('skemas', 'prodis', 'kode_rumpuns', 'pengabdian', 'tahuns'));
     }
 
     public function update(UpdatePengabdianRequest $request, Pengabdian $pengabdian)
@@ -157,7 +163,7 @@ class PengabdianController extends Controller
     {
         abort_if(Gate::denies('pengabdian_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $pengabdian->load('skema', 'prodi', 'kode_rumpun', 'created_by', 'pengabdianPengabdianAnggota', 'pengabdianPengabdianOutputs', 'pengabdianPengabdianBiayas');
+        $pengabdian->load('skema', 'prodi', 'kode_rumpun');
 
         return view('admin.pengabdians.show', compact('pengabdian'));
     }

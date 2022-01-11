@@ -73,6 +73,9 @@
                             ( {{ trans('cruds.pengabdian.fields.skema') }} )
                         </th>
                         <th class="text-center">
+                            Tahun
+                        </th>
+                        <th class="text-center">
                             {{ trans('cruds.pengabdian.fields.biaya') }}
                         </th>
                         <th class="text-center">
@@ -121,6 +124,9 @@
                                 @if($pengabdian->hasKomentar())
                                     <i class="cil-warning text-warning"></i>
                                 @endif
+                            </td>
+                            <td class="text-center">
+                                {{ optional($pengabdian)->tahun }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($pengabdian->biaya,0, ',', '.').',-' ?? '' }}
