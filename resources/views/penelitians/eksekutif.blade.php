@@ -14,7 +14,7 @@
 @endsection
 
 @section('styles')
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet">
     <style>
 
         .step-progressbar {

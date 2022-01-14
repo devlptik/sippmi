@@ -37,7 +37,7 @@ class PengabdianController extends Controller
 
     public function create()
     {
-        abort_if(Gate::denies('penelitian_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('pengabdian_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $skemas = auth()->user()
             ->dosen
