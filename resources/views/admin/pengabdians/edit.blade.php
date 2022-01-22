@@ -24,7 +24,7 @@
             </div>
 
             <div class="card-body">
-                @include('pengabdians._form')
+                @include('admin.pengabdians._form')
             </div>
 
             <div class="card-footer">
