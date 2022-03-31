@@ -47,6 +47,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('monitoring-luaran/export', 'MonitoringLuaranController@export')->name('monitoring-luaran.export');
     Route::resource('monitoring-luaran', 'MonitoringLuaranController');
 
+    Route::post('luaran-dosen/export', 'LuaranPenelitianDosenController@export')->name('luaran-dosen.export');
+    Route::resource('luaran-dosen', 'LuaranPenelitianDosenController');
+
     // Pengabdians
     Route::post('pengabdians/filter', 'PengabdianController@filter')->name('pengabdians.filter');
     Route::delete('pengabdians/destroy', 'PengabdianController@massDestroy')->name('pengabdians.massDestroy');

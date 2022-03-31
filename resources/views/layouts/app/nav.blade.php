@@ -208,6 +208,12 @@
                             Monitoring Luaran
                         </a>
                     </li>
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->is('admin.luaran-dosen') || request()->is('admin.luaran-dosen/*') ? 'active' : '' }}"
+                           href="{{ route("admin.luaran-dosen.index") }}">
+                            Luaran Dosen
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endcan
