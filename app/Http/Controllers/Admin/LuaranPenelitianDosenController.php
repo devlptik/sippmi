@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Dosen;
 use App\Http\Controllers\Controller;
+use App\OutputSkema;
 use App\RefSkema;
 use App\Usulan;
 use Illuminate\Http\Request;
@@ -39,24 +40,30 @@ class LuaranPenelitianDosenController extends Controller
             ->leftJoin("ref_skemas", function ($join) {
                 $join->on("ref_skemas.id", "=", "penelitians.skema_id");
             })
-            ->select("penelitians.id", "penelitians.judul", "penelitians.skema_id", "penelitians.tahun", "penelitians.biaya", "ref_skemas.nama as skema")
+            ->select(
+                "penelitians.id",
+                "penelitians.judul",
+                "penelitians.skema_id",
+                "penelitians.tahun",
+                "penelitians.biaya",
+                "usulan_anggota.jabatan",
+                "ref_skemas.nama as skema")
             ->where("usulans.status_usulan", "=", 3)
             ->where("usulans.jenis_usulan", "=", 'P')
             ->where("usulan_anggota.dosen_id", "=", $dosen->id)
+            ->orderBy('penelitians.tahun', 'DESC')
             ->get();
 
         foreach ($penelitians as $penelitian) {
-            $outputs = RefSkema::leftJoin("output_skemas", function ($join) {
-                $join->on("ref_skemas.id", "=", "output_skemas.skema_id");
+            $outputs = OutputSkema::leftJoin("outputs", function($join){
+                $join->on("outputs.id", "=", "output_skemas.output_id");
             })
-                ->leftJoin("outputs", function ($join) {
-                    $join->on("outputs.id", "=", "output_skemas.output_id");
-                })
-                ->leftJoin("penelitian_outputs", function ($join) {
-                    $join->on("penelitian_outputs.output_skema_id", "=", "output_skemas.id");
+                ->leftJoin("penelitian_outputs", function($join) use ($penelitian) {
+                    $join->on("penelitian_outputs.output_skema_id", "=", "output_skemas.id")
+                        ->where("penelitian_outputs.penelitian_id", "=", $penelitian->id);
                 })
                 ->select("outputs.luaran", "output_skemas.required", "penelitian_outputs.filename")
-                ->where("penelitian_outputs.penelitian_id", "=", 379)
+                ->where("output_skemas.skema_id", $penelitian->skema_id)
                 ->get();
 
             $penelitian->outputs = $outputs;

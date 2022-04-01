@@ -48,6 +48,19 @@
 
                     <div class="form-group row">
                         <div class="col-sm-2">
+                            <strong>Jabatan</strong>
+                        </div>
+                        <div class="col-sm-10">
+                            @if($penelitian->jabatan == 1)
+                                <h5>Ketua</h5>
+                            @else
+                                <h6>Anggota</h6>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2">
                             <strong>Biaya</strong>
                         </div>
                         <div class="col-sm-10">
@@ -70,7 +83,7 @@
                                     @endif
                                     :
                                     @if(!empty($output->filename))
-                                        <a href="storage/luaran/{{ $output->filename }}"><i class="fa fa-download text-primary"></i> Download </a>
+                                        <a href="{{ asset('storage/luaran'. $output->filename) }}"><i class="fa fa-download text-primary"></i> Download </a>
                                     @else
                                         <i class="fa fa-stop-circle text-danger"></i>
                                     @endif
