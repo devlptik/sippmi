@@ -1,4 +1,4 @@
-{{ html()->form('POST', route('admin.monitoring-luaran.store'))->open() }}
+{{ html()->form('POST', route('admin.luaran-dosen.store'))->open() }}
 
 <!-- Input (Select) Tahun -->
 <div class="form-group">

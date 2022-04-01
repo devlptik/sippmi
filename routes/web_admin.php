@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::resource('penelitians', 'PenelitianController');
     Route::resource('penelitian.anggota', 'PenelitianAnggotaController')->only(['create', 'store', 'destroy']);
-    Route::post('penelition/{penelitian}/anggotamhs', 'PenelitianAnggotanController@storem')->name('penelitian.anggota.storemahasiswa');
+    Route::post('penelition/{penelitian}/anggotamhs', 'PenelitianAnggotaController@store')->name('penelitian.anggota.storemahasiswa');
 
     //Hasil Seleksi
     Route::post('proposal-seleksi/reject/{id}', 'ProposalSeleksiController@reject')->name('proposal-seleksi.reject');

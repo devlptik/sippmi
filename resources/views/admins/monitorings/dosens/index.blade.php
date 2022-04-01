@@ -19,23 +19,71 @@
         </div>
     </div>
 
-    @if($results)
+    @if($penelitians)
         <div class="card">
 
             <div class="card-body">
 
-                {{ html()->form('POST', route('admin.luaran-dosen.export'))->open() }}
+                @foreach($penelitians as $penelitian)
 
-                {{ html()->hidden('tahun', $tahun)->id('tahun') }}
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <strong>Judul</strong>
+                        </div>
+                        <div class="col-sm-10">
+                            {!! str_replace('<p>','', str_replace('</p>', '', $penelitian->judul)) !!}
+                            <br>
+                            <em><small>{{ $penelitian->skema }}</small></em>
+                        </div>
+                    </div>
 
-                {{ html()->hidden('skema_id', $skema_id)->id('skema_id') }}
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <strong>Tahun</strong>
+                        </div>
+                        <div class="col-sm-10">
+                            {{ $penelitian->tahun }}
+                        </div>
+                    </div>
 
-                {{ html()->submit('Export')->class('btn btn-primary ml-sm-2 pull-right') }}
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <strong>Biaya</strong>
+                        </div>
+                        <div class="col-sm-10">
+                            Rp {{ number_format($penelitian->biaya, 0, ',', '.').',-' }}
+                        </div>
+                    </div>
 
-                {{ html()->form()->close() }}
 
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <strong>Output</strong>
+                        </div>
+                        <div class="col-sm-10">
+                            <ul>
+                            @foreach($penelitian->outputs as $output)
+                                <li>
+                                    {{ $output->luaran }}
+                                    @if($output->required == 1)
+                                        (Wajib)
+                                    @endif
+                                    :
+                                    @if(!empty($output->filename))
+                                        <a href="storage/luaran/{{ $output->filename }}"><i class="fa fa-download text-primary"></i> Download </a>
+                                    @else
+                                        <i class="fa fa-stop-circle text-danger"></i>
+                                    @endif
+                                </li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <hr>
+
+            @endforeach
             </div>
-
         </div>
     @endif
 
