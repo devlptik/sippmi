@@ -83,7 +83,7 @@
                                     @endif
                                     :
                                     @if(!empty($output->filename))
-                                        <a href="{{ asset('storage/luaran'. $output->filename) }}"><i class="fa fa-download text-primary"></i> Download </a>
+                                        <a target="_blank" href="{{ asset('storage/luaran/'. $output->filename) }}"><i class="fa fa-download text-primary"></i> Download </a>
                                     @else
                                         <i class="fa fa-stop-circle text-danger"></i>
                                     @endif
