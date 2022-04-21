@@ -194,4 +194,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('plotting-reviewers', 'PlottingReviewerController@filter')->name('plotting-reviewers.filter');
     Route::post('plotting-reviewers/plot', 'PlottingReviewerController@plotReviewer')->name('plotting-reviewers.plot');
     Route::delete('plotting-reviewers/{id}/plot', 'PlottingReviewerController@deletePlotReviewer')->name('plotting-reviewers.delete');
+
+    //Insentif Artikel Jurnal
+    Route::resource('jurnal-skemas', 'JurnalSkemaController');
+    Route::resource('jurnal-periodes', 'JurnalPeriodeController');
 });

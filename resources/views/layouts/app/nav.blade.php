@@ -54,17 +54,17 @@
                 </ul>
             </li>
         @endcan
-{{--        @can('audit_log_view')--}}
-{{--            <li class="c-sidebar-nav-item">--}}
-{{--                <a class="c-sidebar-nav-link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}"--}}
-{{--                   href="{{ route("admin.audit-logs.index") }}">--}}
-{{--                <span class="c-sidebar-nav-icon">--}}
-{{--                    <i class="cil-bell"></i>--}}
-{{--                </span>--}}
-{{--                    User Alert--}}
-{{--                </a>--}}
-{{--            </li>--}}
-{{--        @endcan--}}
+        {{--        @can('audit_log_view')--}}
+        {{--            <li class="c-sidebar-nav-item">--}}
+        {{--                <a class="c-sidebar-nav-link {{ request()->is('admin/audit-logs') || request()->is('admin/audit-logs/*') ? 'active' : '' }}"--}}
+        {{--                   href="{{ route("admin.audit-logs.index") }}">--}}
+        {{--                <span class="c-sidebar-nav-icon">--}}
+        {{--                    <i class="cil-bell"></i>--}}
+        {{--                </span>--}}
+        {{--                    User Alert--}}
+        {{--                </a>--}}
+        {{--            </li>--}}
+        {{--        @endcan--}}
         @can('penelitian_user_manage')
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link {{ request()->is('penelitians') || request()->is('penelitians/*') ? 'c-active' : '' }}"
@@ -143,23 +143,23 @@
             </li>
 
 
-        <li class="c-sidebar-nav-dropdown">
-            <a class="c-sidebar-nav-dropdown-toggle" href="#">
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
                 <span class="c-sidebar-nav-icon">
                     <i class="cil-school"></i>
                 </span>
-                Seleksi Proposal
-            </a>
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <a href="{{ route("admin.proposal-seleksi.index") }}"
-                       class="c-sidebar-nav-link {{ request()->is('admin/proposal-seleksi/index') || request()->is('admin/proposal-seleksi/*') ? 'active' : '' }}"
-                    >
-                        Hasil Seleksi
-                    </a>
-                </li>
-            </ul>
-        </li>
+                    Seleksi Proposal
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item">
+                        <a href="{{ route("admin.proposal-seleksi.index") }}"
+                           class="c-sidebar-nav-link {{ request()->is('admin/proposal-seleksi/index') || request()->is('admin/proposal-seleksi/*') ? 'active' : '' }}"
+                        >
+                            Hasil Seleksi
+                        </a>
+                    </li>
+                </ul>
+            </li>
         @endcan
 
         @can('kinerja_view')
@@ -309,13 +309,27 @@
                         </li>
                     @endcan
                     @can('ref_skema_view')
-                        <li class="nav-item">
-                            <a href="{{ route("admin.ref-skemas.index") }}"
-                               class="c-sidebar-nav-link {{ request()->is('admin/ref-skemas') || request()->is('admin/ref-skemas/*') ? 'active' : '' }}">
-                                {{ trans('cruds.refSkema.title') }}
+
+                        <li class="c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#"> Skema
                             </a>
-                        </li>
+                            <ul class="c-sidebar-nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.ref-skemas.index") }}"
+                                       class="c-sidebar-nav-link {{ request()->is('admin/ref-skemas') || request()->is('admin/ref-skemas/*') ? 'active' : '' }}">
+                                        - Penelitian/Pengabdian
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.jurnal-skemas.index") }}"
+                                       class="c-sidebar-nav-link {{ request()->is('admin/ref-skemas') || request()->is('admin/ref-skemas/*') ? 'active' : '' }}">
+                                        - Jurnal
+                                    </a>
+                                </li>
+                            </ul>
+                            </li>
+
                     @endcan
+
                     @can('prn_fokus_view')
                         <li class="nav-item">
                             <a href="{{ route("prn-fokus.index") }}"
