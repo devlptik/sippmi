@@ -17,7 +17,7 @@ class CreateJurnalAnggotasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('jurnal_id');
             $table->integer('tipe')->default(1);
-            $table->unsignedBigInteger('dosen_id')->nullable();
+            $table->unsignedInteger('dosen_id')->nullable();
             $table->string('nama')->nullable();
             $table->string('identifier')->nullable();
             $table->string('unit')->nullable();

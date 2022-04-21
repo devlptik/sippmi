@@ -27,7 +27,7 @@ class CreateJurnalsTable extends Migration
             $table->integer('hal_akhir')->nullable();
             $table->string('doi')->nullable();
             $table->date('tgl_terbit')->nullable();
-            $table->bigInteger('jurnal_periode_id');
+            $table->unsignedBigInteger('jurnal_periode_id');
             $table->string('link')->nullable();
             $table->string('file_artikel')->nullable();
 
@@ -42,7 +42,7 @@ class CreateJurnalsTable extends Migration
 
             $table->foreign('pengusul_id')->references('id')->on('dosens');
             $table->foreign('jurnal_skema_id')->references('id')->on('jurnal_skemas');
-            $table->foregin('jurnal_periode_id')->references('id')->on('jurnal_periodes');
+            $table->foreign('jurnal_periode_id')->references('id')->on('jurnal_periodes');
 
         });
     }
