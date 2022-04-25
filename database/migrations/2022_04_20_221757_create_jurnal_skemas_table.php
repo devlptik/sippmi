@@ -16,7 +16,7 @@ class CreateJurnalSkemasTable extends Migration
         Schema::create('jurnal_skemas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
-            $table->unsignedInteger('unit_id');
+            $table->unsignedInteger('unit_id')->nullable();
             $table->integer('insentif')->default(0)->unsigned();
             $table->integer('jumlah_reviewer')->default(0);
             $table->timestamps();
