@@ -3,14 +3,14 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
-        'Skema' => route('admin.ref-skemas.index'),
+        'Skema' => route('admin.jurnal-skemas.index'),
         'Edit' => '#'
     ]) !!}
 @endsection
 
 @section('toolbar')
     @can('ref_skema_view')
-        {!! cui_toolbar_btn(route('admin.ref-skemas.index'), 'cil-list', 'List Skema' ) !!}
+        {!! cui_toolbar_btn(route('admin.jurnal-skemas.index'), 'cil-list', 'List Skema' ) !!}
     @endcan
 @endsection
 
@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-sm-8">
 
-            {{ html()->modelForm($refSkema, 'PATCH', route('admin.ref-skemas.update', [$refSkema]))->acceptsFiles()->open() }}
+            {{ html()->modelForm($jurnalSkema, 'PATCH', route('admin.jurnal-skemas.update', [$jurnalSkema]))->acceptsFiles()->open() }}
 
             <div class="card">
 
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="card-body">
-                    @include('admins.referensis.ref_skemas._form')
+                    @include('admins.jurnals.skemas._form')
                 </div>
 
                 <div class="card-footer">

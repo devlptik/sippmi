@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Fakultum;
 use App\Http\Controllers\Controller;
+use App\Jurnal;
 use App\JurnalSkema;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,9 @@ class JurnalSkemaController extends Controller
 
         abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admins.jurnals.skemas.index');
+        $jurnalSkemas = JurnalSkema::all();
+
+        return view('admins.jurnals.skemas.index', compact('jurnalSkemas'));
     }
 
     public function create(){
@@ -54,9 +57,52 @@ class JurnalSkemaController extends Controller
     }
 
     public function show(JurnalSkema $jurnalSkema){
+        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('admins.jurnals.skemas.show',[
             'skema' => $jurnalSkema
         ]);
+    }
+
+    public function edit(JurnalSkema $jurnalSkema){
+        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $units = Fakultum::all()->pluck('nama', 'id')->toArray();
+        $units = array_merge([0 => 'LPPM (Universitas Andalas)'], $units);
+
+        return view('admins.jurnals.skemas.edit', compact('units', 'jurnalSkema'));
+    }
+
+    public function update(Request $request, JurnalSkema $jurnalSkema){
+        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'nama' => 'required',
+            'insentif' => 'required',
+            'jumlah_reviewer' => 'required|integer'
+        ]);
+
+        if(empty($request->unit_id)){
+            $request->unit_id = null;
+        }
+
+        $jurnalSkema->nama = $request->nama;
+        $jurnalSkema->unit_id = $request->unit_id;
+        $jurnalSkema->insentif = $request->insentif;
+        $jurnalSkema->jumlah_reviewer = $request->jumlah_reviewer;
+
+        if($jurnalSkema->save()){
+            return redirect()->route('admin.jurnal-skemas.show', $jurnalSkema->id);
+        }
+
+        return redirect()->back()->withErrors(['message' => 'Tidak bisa menyimpan data skema']);
+
+    }
+
+    public function destroy(Request $request, JurnalSkema $jurnalSkema){
+        if($jurnalSkema->delete()){
+            return redirect()->route('admin.jurnal-skemas.index');
+        }
     }
 
 

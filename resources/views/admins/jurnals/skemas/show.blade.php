@@ -11,7 +11,6 @@
     @can('ref_skema_manage')
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.index'), 'cil-list', 'List Skema' ) !!}
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.edit',[$skema]), 'cil-pencil', 'Edit Skema') !!}
-        {!! cui_toolbar_btn(route('admin.jurnal-skemas.destroy',[$skema]), 'cil-trash', 'Hapus Skema') !!}
     @endcan
 @endsection
 
@@ -50,10 +49,17 @@
 
                     </div>
                 </div>
-
-
             </div>
             <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Periode Pengajuan Insentif</strong>
+                    </div>
+                    <div class="card-body">
+                        @include('admins.jurnals.periodes._table')
+                    </div>
+
+                </div>
 
             </div>
         </div>

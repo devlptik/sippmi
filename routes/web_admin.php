@@ -197,5 +197,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     //Insentif Artikel Jurnal
     Route::resource('jurnal-skemas', 'JurnalSkemaController');
-    Route::resource('jurnal-periodes', 'JurnalPeriodeController');
+
+    Route::store('jurnal-periodes/{jurnalSkema}', 'JurnalPeriodeController@store')->name('jurnal-periodes.store');
+    Route::get('jurnal-periodes/{jurnalSkema}/create', 'JurnalPeriodeController@create')->name('jurnal-periodes.create');
+    Route::get('jurnal-periodes/{jurnalSkema}/{jurnalPeriode}/edit', 'JurnalPeriodeController@edit')->name('jurnal-periodes.edit');
+    Route::patch('jurnal-periodes/{jurnalSkema}/{jurnalPeriode}', 'JurnalPeriodeController@update')->name('jurnal-periodes.update');
+
 });
