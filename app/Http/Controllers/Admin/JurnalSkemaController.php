@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Fakultum;
 use App\Http\Controllers\Controller;
-use App\Jurnal;
 use App\JurnalSkema;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +13,7 @@ class JurnalSkemaController extends Controller
 {
     public function index(){
 
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $jurnalSkemas = JurnalSkema::all();
 
@@ -22,7 +21,7 @@ class JurnalSkemaController extends Controller
     }
 
     public function create(){
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $units = Fakultum::all()->pluck('nama', 'id')->toArray();
         $units = array_merge([0 => 'LPPM (Universitas Andalas)'], $units);
@@ -31,7 +30,7 @@ class JurnalSkemaController extends Controller
     }
 
     public function store(Request $request){
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $request->validate([
             'nama' => 'required',
@@ -57,15 +56,16 @@ class JurnalSkemaController extends Controller
     }
 
     public function show(JurnalSkema $jurnalSkema){
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admins.jurnals.skemas.show',[
-            'skema' => $jurnalSkema
+            'skema' => $jurnalSkema,
+            'periodes' => $jurnalSkema->periodes
         ]);
     }
 
     public function edit(JurnalSkema $jurnalSkema){
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $units = Fakultum::all()->pluck('nama', 'id')->toArray();
         $units = array_merge([0 => 'LPPM (Universitas Andalas)'], $units);
@@ -74,7 +74,7 @@ class JurnalSkemaController extends Controller
     }
 
     public function update(Request $request, JurnalSkema $jurnalSkema){
-        abort_if(Gate::denies('reviewer_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $request->validate([
             'nama' => 'required',

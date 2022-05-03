@@ -18,7 +18,7 @@ class CreateJurnalPeriodesTable extends Migration
             $table->bigInteger('jurnal_skema_id')->unsigned();
             $table->string('nama');
             $table->date('periode_mulai');
-            $table->date('periode_selesai');
+            $table->date('periode_akhir');
             $table->dateTime('tgl_mulai_reg');
             $table->dateTime('tgl_akhir_reg');
             $table->timestamps();

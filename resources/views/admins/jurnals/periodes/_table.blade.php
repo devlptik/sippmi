@@ -1,52 +1,48 @@
 <div class="table-responsive">
-    <table class=" table table-outline table-striped table-hover datatable datatable-RefSkema"
+    <table class=" table table-outline table-striped table-hover"
            style="width: 100%">
         <thead class="thead-light">
         <tr>
             <th>
-                Nama Skema
+                Nama
             </th>
-            <th style="width: 80px">
-                Unit
+            <th>
+                Periode Terbit
             </th>
-            <th style="width: 100px">
-                Insentif
+            <th>
+                Periode Pengusulan
             </th>
-            <th style="width: 80px" class="text-center">
-                Jumlah Reviewer
-            </th>
-            <th style="width: 80px" class="text-center">
-                <i class="cil-options"></i>
-            </th>
+            @can('ref_skema_manage')
+                <th style="width: 80px" class="text-center">
+                    <i class="cil-options"></i>
+                </th>
+            @endcan
         </tr>
         </thead>
         <tbody>
-        @foreach($jurnalSkemas as $key => $jurnalSkema)
-            <tr data-entry-id="{{ $jurnalSkema->id }}" >
+        @foreach($periodes as $key => $periode)
+            <tr data-entry-id="{{ $periode->id }}">
                 <td>
-                    {{ $jurnalSkema->nama ?? '' }}
-                </td>
-                <td>
-                    {{ $jurnalSkema->nama_unit ?? '' }}
+                    {{ $periode->nama ?? '' }}
                 </td>
                 <td>
-                    {{ $jurnalSkema->insentif ? format_rupiah($jurnalSkema->insentif) : '' }}
+                    {{ $periode->periode_mulai ?? '' }}
+                    <br><strong>s/d</strong><br>
+                    {{ $periode->periode_akhir }}
                 </td>
                 <td>
-                    {{ $jurnalSkema->jumlah_reviewer ?? '' }}
+                    {{ $periode->tgl_mulai_reg->toDateString() ?? "-" }}
+                    <br><strong>s/d</strong><br>
+                    {{ $periode->tgl_akhir_reg->toDateString() ?? "-" }}
                 </td>
-                <td class="text-center">
-                    @can('ref_skema_view')
-                        {!! cui()->btn_view(route('admin.jurnal-skemas.show', [$jurnalSkema->id])) !!}
-                    @endcan
-
-                    @can('ref_skema_manage')
-                        {!! cui()->btn_edit(route('admin.jurnal-skemas.edit', [$jurnalSkema->id])) !!}
-                        {!! cui()->btn_delete(route('admin.jurnal-skemas.destroy', [$jurnalSkema->id]), "Anda yakin akan menghapus data Skema ini?") !!}
-                    @endcan
-                </td>
-
+                @can('ref_skema_manage')
+                    <td class="text-center">
+                        {!! cui()->btn_edit(route('admin.jurnal-periodes.edit', [$skema->id, $periode->id])) !!}
+                        {!! cui()->btn_delete(route('admin.jurnal-periodes.destroy', [$skema->id, $periode->id]), "Anda yakin akan menghapus data Periode Skema ini?") !!}
+                    </td>
+                @endcan
             </tr>
         @endforeach
         </tbody>
     </table>
+</div>

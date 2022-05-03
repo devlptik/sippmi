@@ -3,13 +3,12 @@
     {!! cui_breadcrumb([
         'Home' => route('admin.home'),
         'Skema' => route('admin.jurnal-skemas.index'),
-        'Detail' => '#'
+        'Tambah Periode' => '#'
     ]) !!}
 @endsection
 
 @section('toolbar')
     @can('ref_skema_manage')
-        {!! cui_toolbar_btn(route('admin.jurnal-periodes.create', [$skema->id]), 'cil-plus', 'Tambah Periode' ) !!}
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.index'), 'cil-list', 'List Skema' ) !!}
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.edit',[$skema]), 'cil-pencil', 'Edit Skema') !!}
     @endcan
@@ -52,16 +51,21 @@
                 </div>
             </div>
             <div class="col-sm-6">
+                {{ html()->form('POST', route('admin.jurnal-periodes.store', [$skema->id]))->acceptsFiles()->open() }}
                 <div class="card">
                     <div class="card-header">
                         <strong>Periode Pengajuan Insentif</strong>
                     </div>
                     <div class="card-body">
-                        @include('admins.jurnals.periodes._table')
+                        @include('admins.jurnals.periodes._form')
+                    </div>
+                    <div class="card-footer">
+                        {{ html()->submit('Tambah')->class(['btn', 'btn-primary']) }}
                     </div>
 
                 </div>
 
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>
