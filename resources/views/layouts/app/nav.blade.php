@@ -89,6 +89,18 @@
             </li>
         @endcan
 
+        @can('jurnal_user_manage')
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{ request()->is('jurnals') || request()->is('jurnals/*') ? 'active' : '' }}"
+                   href="{{ route("jurnals.index") }}">
+                <span class="c-sidebar-nav-icon">
+                    <i class="cil-school"></i>
+                </span>
+                    Insentif Jurnal
+                </a>
+            </li>
+        @endcan
+
         @can('kinerja_user_manage')
             <li class="c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">

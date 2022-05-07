@@ -29,6 +29,11 @@ Route::resource('pengabdians', 'PengabdianController');
 Route::resource('pengabdian.anggota', 'PengabdianAnggotaController');
 Route::post('pengabdian/{id}/anggota/mahasiswa-store','PengabdianAnggotaController@mahasiswaStore')->name('pengabdians.anggota-mahasiswa.store');
 
+/** JURNALS */
+Route::get('jurnals/{jurnalSkema}/create/', 'JurnalController@create')->name('jurnals.create');
+Route::resource('jurnals', 'JurnalController')->except('create');
+Route::resource('usulan-jurnals', 'JurnalUsulanController');
+
 /** PEMAKALAH */
 Route::post('pemakalah/{pemakalah}/submit', 'PemakalahController@submit')->name('pemakalahs.submit');
 Route::get('pemakalah/{pemakalah}/review', 'PemakalahController@review')->name('pemakalahs.review');
