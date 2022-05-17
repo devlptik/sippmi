@@ -47,7 +47,6 @@
                             <div>{{ $skema->jumlah_reviewer }}</div>
                         </div>
 
-
                     </div>
                 </div>
             </div>

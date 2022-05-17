@@ -31,14 +31,14 @@ class JurnalController extends Controller
     {
         abort_if(Gate::denies('jurnal_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $periodes = JurnalPeriode::where('tgl_mulai_reg', '<=', Carbon::now())
-            ->where('tgl_akhir_reg', '>=', Carbon::now())
+        $periodes = JurnalPeriode::where('tgl_mulai_reg', '<=', Carbon::now()->toDateString())
+            ->where('tgl_akhir_reg', '>=', Carbon::now()->toDateString())
             ->where('jurnal_skema_id', $jurnalSkema->id)
             ->get();
 
         return view('jurnals.create', [
             'skema' => $jurnalSkema,
-            'periodes' => $periodes
+            'periodes' => $periodes->pluck('periode_terbit', 'id')
         ]);
     }
 

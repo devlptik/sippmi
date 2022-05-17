@@ -10,8 +10,8 @@ class JurnalUsulanController extends Controller
 {
     public function create()
     {
-        $periodes = JurnalPeriode::where('tgl_mulai_reg','<=',Carbon::now())
-            ->where('tgl_akhir_reg', '>=', Carbon::now())
+        $periodes = JurnalPeriode::where('tgl_mulai_reg','<=',Carbon::now()->toDateString())
+            ->where('tgl_akhir_reg', '>=', Carbon::now()->toDateString())
             ->get()
             ->pluck('jurnal_skema_id')
             ->toArray();

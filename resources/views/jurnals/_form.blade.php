@@ -22,15 +22,17 @@
 <!-- Text Field Input for Skema usulan -->
 <div class="form-group">
     <label class="form-label">Skema Insentif</label>
-    {{ html()->text('')->class(["form-control", "read-only"]) }}
+    <div class="form-control">
+        {{ $skema->nama }}
+    </div>
 </div>
 
-<!-- Text Field Input for DOI -->
+<!-- Input (Select) Fakultas -->
 <div class="form-group">
-    <label class="form-label" for="doi">D.O.I</label>
-    {{ html()->text('doi')->class(["form-control", "is-invalid" => $errors->has('doi')])->id('doi') }}
-    @error('doi')
-    <div class="invalid-feedback">{{ $errors->first('doi') }}</div>
+    <label class="form-label" for="jurnal_periode_id">Periode TeGrbit</label>
+    {{ html()->select('jurnal_periode_id')->options($periodes)->class(["form-control", "is-invalid" => $errors->has('jurnal_periode_id')])->id('jurnal_periode_id')}}
+    @error('jurnal_periode_id')
+    <div class="invalid-feedback">{{ $errors->first('jurnal_periode_id') }}</div>
     @enderror
 </div>
 
@@ -63,7 +65,7 @@
 
 <!-- Text Field Input for Informasi Vol/no/Hal-->
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-label" for="volume">Volume</label>
             {{ html()->text('volume')->class(["form-control", "is-invalid" => $errors->has('volume')])->id('volume') }}
@@ -72,7 +74,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-label" for="no">Nomor</label>
             {{ html()->text('no')->class(["form-control", "is-invalid" => $errors->has('no')])->id('no') }}
@@ -81,7 +83,10 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-3">
+</div>
+
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-label" for="hal_awal">Halaman awal</label>
             {{ html()->text('hal_awal')->class(["form-control", "is-invalid" => $errors->has('hal_awal')])->id('hal_awal') }}
@@ -90,7 +95,7 @@
             @enderror
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group">
             <label class="form-label" for="hal_akhir">Halaman akhir</label>
             {{ html()->text('hal_akhir')->class(["form-control", "is-invalid" => $errors->has('hal_akhir')])->id('hal_akhir') }}
@@ -137,20 +142,25 @@
     @enderror
 </div>
 
-<!-- Text Field Input for Impact Factor -->
-<div class="form-group">
-    <label class="form-label" for="impact_factor">Impact Factor</label>
-    {{ html()->text('impact_factor')->class(["form-control", "is-invalid" => $errors->has('impact_factor')])->id('impact_factor') }}
-    @error('impact_factor')
-    <div class="invalid-feedback">{{ $errors->first('impact_factor') }}</div>
-    @enderror
-</div>
-
-<!-- Text Field Input for H-Index -->
-<div class="form-group">
-    <label class="form-label" for="h_index">H-Index</label>
-    {{ html()->text('h_index')->class(["form-control", "is-invalid" => $errors->has('h_index')])->id('h_index') }}
-    @error('h_index')
-    <div class="invalid-feedback">{{ $errors->first('h_index') }}</div>
-    @enderror
+<div class="row">
+    <div class="col-md-6">
+        <!-- Text Field Input for Impact Factor -->
+        <div class="form-group">
+            <label class="form-label" for="impact_factor">Impact Factor</label>
+            {{ html()->text('impact_factor')->class(["form-control", "is-invalid" => $errors->has('impact_factor')])->id('impact_factor') }}
+            @error('impact_factor')
+            <div class="invalid-feedback">{{ $errors->first('impact_factor') }}</div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- Text Field Input for H-Index -->
+        <div class="form-group">
+            <label class="form-label" for="h_index">H-Index</label>
+            {{ html()->text('h_index')->class(["form-control", "is-invalid" => $errors->has('h_index')])->id('h_index') }}
+            @error('h_index')
+            <div class="invalid-feedback">{{ $errors->first('h_index') }}</div>
+            @enderror
+        </div>
+    </div>
 </div>

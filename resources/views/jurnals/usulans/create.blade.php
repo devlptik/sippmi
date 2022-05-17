@@ -41,7 +41,7 @@
                     <tr>
                         <td class="text-center">
                             <h5 class="text-danger">
-                                Belum ada usulan yang tersedia saat ini
+                                Belum ada skema usulan yang dibuka saat ini
                             </h5>
                         </td>
                     </tr>
