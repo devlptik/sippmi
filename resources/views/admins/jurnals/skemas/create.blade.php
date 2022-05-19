@@ -22,7 +22,7 @@
 
                 <div class="card">
 
-                    {{ html()->form('POST', route('admin.jurnal-skemas.store'))->acceptsFiles()->open() }}
+                    {{ html()->form('POST', route('admin.jurnal-skemas.periode.store'))->acceptsFiles()->open() }}
 
                     <div class="card-header font-weight-bold">
                         <i class="cil-plus"></i> Tambah Skema

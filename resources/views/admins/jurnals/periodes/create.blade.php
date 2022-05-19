@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                {{ html()->form('POST', route('admin.jurnal-periodes.store', [$skema->id]))->acceptsFiles()->open() }}
+                {{ html()->form('POST', route('admin.jurnal-skemas.periodes.store', [$skema->id]))->acceptsFiles()->open() }}
                 <div class="card">
                     <div class="card-header">
                         <strong>Periode Pengajuan Insentif</strong>

@@ -38,24 +38,26 @@ class JurnalPeriodeController extends Controller
         $jurnalPeriode->periode_akhir = $request->periode_akhir;
         $jurnalPeriode->tgl_mulai_reg = $request->tgl_mulai_reg;
         $jurnalPeriode->tgl_akhir_reg = $request->tgl_akhir_reg;
+
         if($jurnalPeriode->save()){
             return redirect()->route('admin.jurnal-skemas.show', $request->jurnal_skema_id);
         }
+
         return redirect()->back()->withError();
     }
 
-    public function edit(JurnalSkema $jurnalSkema, JurnalPeriode $jurnalPeriode)
+    public function edit(JurnalSkema $jurnalSkema, JurnalPeriode $periode)
     {
         abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admins.jurnals.periodes.edit', [
             'skema' => $jurnalSkema,
-            'periode' => $jurnalPeriode
+            'periode' => $periode
         ]);
 
     }
 
-    public function update(Request $request, JurnalSkema $jurnalSkema, JurnalPeriode $jurnalPeriode)
+    public function update(Request $request, JurnalSkema $jurnalSkema, JurnalPeriode $periode)
     {
         abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $request->validate([
@@ -66,24 +68,24 @@ class JurnalPeriodeController extends Controller
             'tgl_akhir_reg' => 'required|date'
         ]);
 
-        $jurnalPeriode->nama = $request->nama;
-        $jurnalPeriode->periode_mulai = $request->periode_mulai;
-        $jurnalPeriode->periode_akhir = $request->periode_akhir;
-        $jurnalPeriode->tgl_mulai_reg = $request->tgl_mulai_reg;
-        $jurnalPeriode->tgl_akhir_reg = $request->tgl_akhir_reg;
-        if($jurnalPeriode->save()){
+        $periode->nama = $request->nama;
+        $periode->periode_mulai = $request->periode_mulai;
+        $periode->periode_akhir = $request->periode_akhir;
+        $periode->tgl_mulai_reg = $request->tgl_mulai_reg;
+        $periode->tgl_akhir_reg = $request->tgl_akhir_reg;
+
+        if($periode->save()){
             return redirect()->route('admin.jurnal-skemas.show', $request->jurnal_skema_id);
         }
         return redirect()->back()->withError();
-
     }
 
-    public function destroy(Request $request, JurnalSkema $jurnalSkema, JurnalPeriode $jurnalPeriode)
+    public function destroy(Request $request, JurnalSkema $jurnalSkema, JurnalPeriode $periode)
     {
         abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        if($jurnalPeriode != null){
-            $jurnalPeriode->delete();
+        if($periode != null){
+            $periode->delete();
             return redirect()->route('admin.jurnal-skemas.show', $jurnalSkema->id);
         }
         return redirect()->back()->withError();

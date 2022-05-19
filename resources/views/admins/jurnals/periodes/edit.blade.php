@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                {{ html()->modelForm($periode, 'PATCH', route('admin.jurnal-periodes.update', [$skema->id, $periode->id]))->acceptsFiles()->open() }}
+                {{ html()->modelForm($periode, 'PATCH', route('admin.jurnal-skemas.periodes.update', [$skema, $periode]))->open() }}
                 <div class="card">
                     <div class="card-header">
                         <strong>Periode Pengajuan Insentif</strong>

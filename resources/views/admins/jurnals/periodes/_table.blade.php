@@ -37,8 +37,8 @@
                 </td>
                 @can('ref_skema_manage')
                     <td class="text-center">
-                        {!! cui()->btn_edit(route('admin.jurnal-periodes.edit', [$skema->id, $periode->id])) !!}
-                        {!! cui()->btn_delete(route('admin.jurnal-periodes.destroy', [$skema->id, $periode->id]), "Anda yakin akan menghapus data Periode Skema ini?") !!}
+                        {!! cui()->btn_edit(route('admin.jurnal-skemas.periodes.edit', [$skema->id, $periode->id])) !!}
+                        {!! cui()->btn_delete(route('admin.jurnal-skemas.periodes.destroy', [$skema->id, $periode->id]), "Anda yakin akan menghapus data Periode Skema ini?") !!}
                     </td>
                 @endcan
             </tr>

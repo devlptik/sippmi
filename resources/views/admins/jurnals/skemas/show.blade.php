@@ -9,7 +9,7 @@
 
 @section('toolbar')
     @can('ref_skema_manage')
-        {!! cui_toolbar_btn(route('admin.jurnal-periodes.create', [$skema->id]), 'cil-plus', 'Tambah Periode' ) !!}
+        {!! cui_toolbar_btn(route('admin.jurnal-skemas.periodes.create', [$skema->id]), 'cil-plus', 'Tambah Periode' ) !!}
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.index'), 'cil-list', 'List Skema' ) !!}
         {!! cui_toolbar_btn(route('admin.jurnal-skemas.edit',[$skema]), 'cil-pencil', 'Edit Skema') !!}
     @endcan
