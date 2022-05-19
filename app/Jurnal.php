@@ -26,4 +26,9 @@ class Jurnal extends Model
     {
         return $this->belongsTo(JurnalSkema::class, 'jurnal_skema_id');
     }
+
+    public function anggotas()
+    {
+        return $this->hasMany(JurnalAnggota::class, 'jurnal_id');
+    }
 }

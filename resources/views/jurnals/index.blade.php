@@ -48,20 +48,23 @@
                     <tbody>
                     @forelse($jurnals as $key => $jurnal)
                         <tr data-entry-id="{{ $jurnal->id }}">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ optional($jurnal->skema)->nama }}</td>
+                            <td>{{ optional($jurnal->periode)->nama }}</td>
+                            <td>{{ $jurnal->judul }}</td>
+                            <td>
+                                <a href="{{ $jurnal->link }}" target="_blank" class="btn btn-link"><i class="fa fa-file-pdf-o"></i> </a>
+                            </td>
                             <td class="text-center">
                                 <h5>
+                                    {{ \App\Jurnal::STATUS_LABEL[$jurnal->status]}}
                                 </h5>
                             </td>
                             <td class="text-center">
-                                {!! cui()->btn_view(route('penelitians.show', $penelitian->id)) !!}
-                                @if(!$penelitian->isDecided())
-                                    @if($penelitian->owner == auth()->user()->id)
-                                        {!! cui()->btn_edit(route('penelitians.edit', $penelitian->id)) !!}
-                                        {!! cui()->btn_delete(route('penelitians.destroy', $penelitian->id), trans('global.areYouSure')) !!}
+                                {!! cui()->btn_view(route('jurnal.show', $jurnal->id)) !!}
+                                @if(!$jurnalj->isDecided())
+                                    @if($jurnal->pengusul_id == auth()->user()->id)
+                                        {!! cui()->btn_edit(route('jurnals.edit', $jurnal->id)) !!}
+                                        {!! cui()->btn_delete(route('jurnals.destroy', $jurnal->id), trans('global.areYouSure')) !!}
                                     @endif
                                 @endif
                             </td>

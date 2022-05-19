@@ -12,10 +12,10 @@
 
 <!-- Text Field Input for Abstrak -->
 <div class="form-group">
-    <label class="form-label" for="abstrak">Abstrak</label>
-    {{ html()->textarea('abstrak')->class(["form-control", "is-invalid" => $errors->has('abstrak')])->id('abstrak') }}
-    @error('abstrak')
-    <div class="invalid-feedback">{{ $errors->first('abstrak') }}</div>
+    <label class="form-label" for="abstract">Abstrak</label>
+    {{ html()->textarea('abstract')->class(["form-control", "is-invalid" => $errors->has('abstract')])->id('abstract') }}
+    @error('abstract')
+    <div class="invalid-feedback">{{ $errors->first('abstract') }}</div>
     @enderror
 </div>
 
@@ -42,6 +42,15 @@
     {{ html()->text('link')->class(["form-control", "is-invalid" => $errors->has('link')])->id('link') }}
     @error('link')
     <div class="invalid-feedback">{{ $errors->first('link') }}</div>
+    @enderror
+</div>
+
+<!-- Text Field Input for  -->
+<div class="form-group">
+    <label class="form-label" for="doi">D.O.I</label>
+    {{ html()->text('doi')->class(["form-control", "is-invalid" => $errors->has('doi')])->id('doi') }}
+    @error('doi')
+    <div class="invalid-feedback">{{ $errors->first('doi') }}</div>
     @enderror
 </div>
 
@@ -76,10 +85,10 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label class="form-label" for="no">Nomor</label>
-            {{ html()->text('no')->class(["form-control", "is-invalid" => $errors->has('no')])->id('no') }}
-            @error('no')
-            <div class="invalid-feedback">{{ $errors->first('no') }}</div>
+            <label class="form-label" for="nomor">Nomor</label>
+            {{ html()->text('nomor')->class(["form-control", "is-invalid" => $errors->has('nomor')])->id('nomor') }}
+            @error('nomor')
+            <div class="invalid-feedback">{{ $errors->first('nomor') }}</div>
             @enderror
         </div>
     </div>

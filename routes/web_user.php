@@ -30,7 +30,8 @@ Route::resource('pengabdian.anggota', 'PengabdianAnggotaController');
 Route::post('pengabdian/{id}/anggota/mahasiswa-store','PengabdianAnggotaController@mahasiswaStore')->name('pengabdians.anggota-mahasiswa.store');
 
 /** JURNALS */
-Route::resource('jurnals.author', 'JurnalAuthorController');
+Route::post('jurnals/{jurnal}/submit', 'JurnalController@submit')->name('jurnals.submit');
+Route::resource('jurnals.authors', 'JurnalAuthorController');
 Route::get('jurnals/{jurnalSkema}/create/', 'JurnalController@create')->name('jurnals.create');
 Route::resource('jurnals', 'JurnalController')->except('create');
 Route::resource('usulan-jurnals', 'JurnalUsulanController');

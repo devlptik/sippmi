@@ -26,6 +26,13 @@
         <div class="card-body">
             @include('jurnals._info')
         </div>
+
+        <div class="card-footer">
+            {{ html()->form('POST', route('jurnals.submit'))->acceptsFiles()->open() }}
+            <input type="hidden" name="id" value="{{ $jurnal->id }}" />
+            <input type="submit" class="btn btn-submit" value="Submit Usulan" />
+            {{ html()->form()->close() }}
+        </div>
     </div>
 
 @endsection

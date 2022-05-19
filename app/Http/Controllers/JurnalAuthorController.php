@@ -2,83 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Dosen;
+use App\Jurnal;
+use App\JurnalAnggota;
+use App\Prodi;
 use Illuminate\Http\Request;
 
 class JurnalAuthorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function create(Jurnal $jurnal)
     {
-        //
+        $anggotas = $jurnal->anggotas()->where('tipe', 1)->pluck('dosen_id', 'dosen_id')->toArray();
+        $dosens = Dosen::whereNotIn('id',$anggotas)
+            ->get()
+            ->pluck('nama_nidn', 'id');
+        $prodis = Prodi::pluck('nama','nama');
+        $anggotas = $jurnal->anggotas;
+
+        return view('jurnals.authors.create', compact('jurnal', 'anggotas', 'dosens', 'prodis'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(Request $request, Jurnal $jurnal)
     {
-        //
+        $anggota = new JurnalAnggota();
+        $anggota->jurnal_id = $jurnal->id;
+        $anggota->no_urut = $request->no_urut;
+
+        if($request->tipe == JurnalAnggota::TYPE_DOSEN){
+           $anggota->tipe = 1;
+           $anggota->dosen_id = $request->get('dosen_id');
+        }else {
+            $anggota->tipe = 2;
+            $anggota->nama = $request->get('nama');
+            $anggota->identifier = $request->identifier;
+            $anggota->unit = $request->unit;
+        }
+        if( $anggota->save())
+            return redirect()->route('jurnals.authors.create', [$jurnal->id]);
+
+        return redirect()->back()->withInput();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function destroy(Request $request, Jurnal $jurnal, JurnalAnggota  $author)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $author->delete();
+        return back();
     }
 }
