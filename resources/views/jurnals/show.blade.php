@@ -24,6 +24,7 @@
         </div>
 
         <div class="card-body">
+            @include('jurnals._info')
         </div>
     </div>
 

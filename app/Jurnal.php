@@ -13,6 +13,15 @@ class Jurnal extends Model
     const STATUS_REJECTED = 40;
     const STATUS_ACCEPTED = 50;
 
+    const STATUS_LABEL = [
+        self::STATUS_DRAFT => 'Draft',
+        self::STATUS_SUBMITTED => 'Submit',
+        self::STATUS_REVIEWING => 'Sedang direview',
+        self::STATUS_REVIEWED => 'Telah direview',
+        self::STATUS_REJECTED => 'Ditolak',
+        self::STATUS_ACCEPTED => 'Diterima'
+    ];
+
     public function skema()
     {
         return $this->belongsTo(JurnalSkema::class, 'jurnal_skema_id');

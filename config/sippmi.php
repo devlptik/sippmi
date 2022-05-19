@@ -9,6 +9,9 @@ return [
         'logbook' => 'logbook',
         'luaran' => 'luaran',
         'lap_akhir' => 'lap_akhir',
+        'jurnal' => [
+            'artikel' => 'jurnal/artikel',
+        ],
         'kinerja' => [
             'makalah' => 'kinerja/makalah'
         ]

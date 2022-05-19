@@ -70,7 +70,7 @@ class JurnalController extends Controller
         $jurnal->abstract = $request->abstract;
         $jurnal->jurnal_skema_id = $request->jurnal_skema_id;
         $jurnal->pengusul_id = auth()->user()->id;
-        $jurnal->status_usulan = 1;
+        $jurnal->status_usulan = Jurnal::STATUS_DRAFT;
         $jurnal->luaran_id = 1;
         $jurnal->volume = $request->volume;
         $jurnal->nomor = $request->nomor;
@@ -80,7 +80,6 @@ class JurnalController extends Controller
         $jurnal->tgl_terbit = $request->tgl_terbit;
         $jurnal->jurnal_periode_id = $request->jurnal_periode_id;
         $jurnal->link = $request->link;
-        $jurnal->file_artikel = $request->file_artikel;
         $jurnal->nama_jurnal = $request->nama_jurnal;
         $jurnal->issn = $request->issn;
         $jurnal->cakupan_bidang = $request->cakupan_bidang;
@@ -89,7 +88,8 @@ class JurnalController extends Controller
         $jurnal->h_index = $request->h_index;
 
         if($jurnal->save()){
-            return redirect()->route('journals.index');
+            $this->addFile($jurnal, $request, 'file_artikel', config('sippmi.path.jurnal.artikel'));
+            return redirect()->route('journals.authors.create');
         }
         return redirect()->back()->withError();
     }
