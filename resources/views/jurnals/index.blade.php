@@ -27,41 +27,46 @@
                     <tr>
                         <th>
                             Skema
-                        </th>
-                        <th>
-                            Periode
+                            <em><small>Periode</small></em>
                         </th>
                         <th>
                             Judul Artikel
                         </th>
                         <th>
-                            Link
+                            Artikel
                         </th>
                         <th>
                             Status
                         </th>
                         <th class="text-center">
-                            &nbsp;Aksi
+                            Aksi
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($jurnals as $key => $jurnal)
                         <tr data-entry-id="{{ $jurnal->id }}">
-                            <td>{{ optional($jurnal->skema)->nama }}</td>
-                            <td>{{ optional($jurnal->periode)->nama }}</td>
+                            <td>
+                            {{ optional($jurnal->skema)->nama }}
+                                <br>
+                                <em>
+                                    <small>
+                                        Periode : {{ optional($jurnal->periode)->nama }}
+                                    </small>
+                                </em>
+                            </td>
                             <td>{{ $jurnal->judul }}</td>
                             <td>
                                 <a href="{{ $jurnal->link }}" target="_blank" class="btn btn-link"><i class="fa fa-file-pdf-o"></i> </a>
                             </td>
                             <td class="text-center">
                                 <h5>
-                                    {{ \App\Jurnal::STATUS_LABEL[$jurnal->status]}}
+                                    <span class="badge badge-{{ $jurnal->status_color }}">{{ $jurnal->status_text }}</span>
                                 </h5>
                             </td>
                             <td class="text-center">
-                                {!! cui()->btn_view(route('jurnal.show', $jurnal->id)) !!}
-                                @if(!$jurnalj->isDecided())
+                                {!! cui()->btn_view(route('jurnals.show', $jurnal->id)) !!}
+                                @if(!$jurnal->isDecided())
                                     @if($jurnal->pengusul_id == auth()->user()->id)
                                         {!! cui()->btn_edit(route('jurnals.edit', $jurnal->id)) !!}
                                         {!! cui()->btn_delete(route('jurnals.destroy', $jurnal->id), trans('global.areYouSure')) !!}

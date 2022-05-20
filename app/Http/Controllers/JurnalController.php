@@ -22,7 +22,9 @@ class JurnalController extends Controller
             ->get()
             ->pluck('jurnal_id')
             ->toArray();
-        $jurnals = Jurnal::whereIn('id', $anggotas)->get();
+        $jurnals = Jurnal::whereIn('id', $anggotas)
+            ->orWhere('pengusul_id', $user_id)
+            ->get();
 
         return view('jurnals.index', compact('jurnals'));
     }
@@ -171,7 +173,7 @@ class JurnalController extends Controller
         abort_if(Gate::denies('jurnal_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if($jurnal->delete()){
-            return redirect()->route('journals.index');
+            return redirect()->route('jurnals.index');
         }
         return redirect()->back()->withInput();
     }
@@ -179,11 +181,11 @@ class JurnalController extends Controller
     public function submit(Request $request, Jurnal $jurnal){
 
         abort_if(Gate::denies('jurnal_user_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $jurnal->status = Jurnal::STATUS_SUBMITTED;
+
+        $jurnal->status_usulan = Jurnal::STATUS_SUBMITTED;
         if($jurnal->save()){
             return redirect()->route('jurnals.index');
         }
-
         return redirect()->back()->withInput();
     }
 }
