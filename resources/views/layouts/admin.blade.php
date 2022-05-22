@@ -46,9 +46,13 @@
     </div>
 
     <div class="c-body">
+
+
         <main class="c-main">
             <div class="container-fluid">
                 <div class="fade-in">
+
+                    @include('flash::message')
 
                     @if($errors->count() > 0)
                         <div class="alert alert-danger">

@@ -117,7 +117,7 @@ class JurnalController extends Controller
         return view('jurnals.edit', [
             'jurnal' => $jurnal,
             'skema' => $jurnalSkema,
-            'periodes' => $periodes
+            'periodes' => $periodes->pluck('periode_terbit', 'id')
         ]);
     }
 

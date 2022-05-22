@@ -25,6 +25,16 @@ class JurnalAuthorController extends Controller
 
     public function store(Request $request, Jurnal $jurnal)
     {
+
+        $author_exists = JurnalAnggota::where('jurnal_id', $jurnal->id)
+            ->where('no_urut', $request->no_urut)
+            ->count();
+
+        if($author_exists >= 1){
+            flash('Penulis '. $request->no_urut .' sudah terdaftar')->error();
+            return redirect()->back()->withInput();
+        }
+
         $anggota = new JurnalAnggota();
         $anggota->jurnal_id = $jurnal->id;
         $anggota->no_urut = $request->no_urut;

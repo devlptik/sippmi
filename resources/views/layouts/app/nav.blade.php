@@ -174,6 +174,25 @@
             </li>
         @endcan
 
+        @can('pengelolaan_jurnal_view')
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle" href="#">
+                <span class="c-sidebar-nav-icon">
+                    <i class="cil-school"></i>
+                </span>
+                    Jurnal
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item">
+                        <a class="c-sidebar-nav-link {{ request()->is('admin/jurnals') || request()->is('admin/jurnals/*') ? 'active' : '' }}"
+                           href="{{ route("admin.jurnals.index") }}">
+                            Usulan Jurnal
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
+
         @can('kinerja_view')
             <li class="c-sidebar-nav-dropdown">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
@@ -338,7 +357,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            </li>
+                        </li>
 
                     @endcan
 

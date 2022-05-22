@@ -187,7 +187,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('usulan/{penelitian}/komentar/{komentar}/open', 'UsulanKomentarController@open')->name('usulan.komentars.open');
     Route::resource('usulan.komentars', 'UsulanKomentarController');
 
-// Plotting Reviewer
+    // Plotting Reviewer
     Route::get('plotting-reviewers', 'PlottingReviewerController@index')->name('plotting-reviewers.index');
     Route::get('plotting-reviewers/reviewer/{tahapan_review_id}/{usulan_id}', 'PlottingReviewerController@getReviewer')->name('plotting-reviewers.reviewer');
     Route::get('plotting-reviewers/rekapitulasi', 'PlottingReviewerController@rekapitulasi')->name('plotting-reviewers.rekapitulasi');
@@ -196,13 +196,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('plotting-reviewers/{id}/plot', 'PlottingReviewerController@deletePlotReviewer')->name('plotting-reviewers.delete');
 
     //Insentif Artikel Jurnal
+    Route::post('jurnals/filter', 'JurnalController@filter')->name('jurnals.filter');
+    Route::resource('jurnals', 'JurnalController');
     Route::resource('jurnal-skemas', 'JurnalSkemaController');
-
+    Route::get('jurnal-skemas/{jurnal-skema}/periodes/data', 'JurnalPeriodeController@data')->name('jurnal-skemas.periodes.data');
     Route::resource('jurnal-skemas.periodes', 'JurnalPeriodeController')->except(['index']);
-//    Route::post('jurnal-periodes/{jurnalSkema}', 'JurnalPeriodeController@store')->name('jurnal-periodes.store');
-//    Route::get('jurnal-periodes/{jurnalSkema}/create', 'JurnalPeriodeController@create')->name('jurnal-periodes.create');
-//    Route::get('jurnal-periodes/{jurnalSkema}/{jurnalPeriode}/edit', 'JurnalPeriodeController@edit')->name('jurnal-periodes.edit');
-//    Route::patch('jurnal-periodes/{jurnalSkema}/{jurnalPeriode}', 'JurnalPeriodeController@update')->name('jurnal-periodes.update');
-//    Route::delete('jurnal-periodes/{jurnalSkema}/{jurnalPeriode}', 'JurnalPeriodeController@destroy')->name('jurnal-periodes.destroy');
 
 });

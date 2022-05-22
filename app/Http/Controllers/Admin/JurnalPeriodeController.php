@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jurnal;
 use App\JurnalPeriode;
 use App\JurnalSkema;
 use Illuminate\Http\Request;
@@ -89,6 +90,17 @@ class JurnalPeriodeController extends Controller
             return redirect()->route('admin.jurnal-skemas.show', $jurnalSkema->id);
         }
         return redirect()->back()->withError();
+    }
+
+    public function data(JurnalSkema $jurnalSkema){
+        abort_if(Gate::denies('ref_skema_manage'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $periodes = JurnalPeriode::where('jurnal_skema_id', $jurnalSkema->id)
+            ->get()
+            ->pluck('periode_terbit', 'id')
+            ->toArray();
+
+        return \response()->json($periodes);
     }
 }
 

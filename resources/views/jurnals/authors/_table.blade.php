@@ -3,7 +3,7 @@
     <tr>
         <th scope="col" class="text-center">Nama <br> NIP</th>
         <th scope="col" class="text-center">Prodi</th>
-        <th scope="col" class="text-center">Jabatan</th>
+        <th scope="col" class="text-center">Penulis Ke</th>
         <th scope="col" class="text-center">Hapus</th>
     </tr>
     </thead>
