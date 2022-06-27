@@ -30,7 +30,7 @@
     </div>
     {{ html()->form()->close() }}
 
-    @if(isset($periodes))
+    @if(isset($jurnals))
 
         <div class="card">
             <div class="card-header">
@@ -60,7 +60,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($jurnals as $key => $jurnal)
+                        @forelse($jurnals as $jurnal)
                             <tr data-entry-id="{{ $jurnal->id }}">
                                 <td>
                                     {{ optional($jurnal->skema)->nama }}
