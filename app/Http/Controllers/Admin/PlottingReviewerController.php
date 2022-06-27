@@ -23,6 +23,10 @@ class PlottingReviewerController extends Controller
         abort_if(Gate::denies('plotting_reviewer_view'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $tahapanRiview = TahapanReview::where('tahun', Carbon::now()->year)
+            ->orWhere(function ($query){
+                $query->where('mulai', '<=', Carbon::now())
+                    ->where('selesai', '>=', Carbon::now());
+            })
             ->pluck('nama', 'id');
 
         $skemas = RefSkema::all()
